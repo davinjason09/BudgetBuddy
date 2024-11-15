@@ -1,26 +1,37 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
 export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+  dark25: "#7A7E80",
+  dark50: "#4D4F51",
+  dark75: "#161719",
+  dark100: "#0D0E0F",
+  light20: "#D3D3D3",
+  light40: "#F2F4F5",
+  light60: "#F7F9FA",
+  light80: "#FBFBFB",
+  light100: "#FFFFFF",
+  violet20: "#EEE5FF",
+  violet40: "#D3BDFF",
+  violet60: "#B18AFF",
+  violet80: "#8F57FF",
+  violet100: "#7F3DFF",
+  red20: "#FDD5D7",
+  red40: "#FDA2A9",
+  red60: "#FD6F7A",
+  red80: "#FD5662",
+  red100: "#FD3C4A",
+  green20: "#CFFAEA",
+  green40: "#93EACA",
+  green60: "#65D1AA",
+  green80: "#2AB784",
+  green100: "#00A86B",
+  yellow20: "#FCEED4",
+  yellow40: "#FCDDA1",
+  yellow60: "#FCCC6F",
+  yellow80: "#FCBB3C",
+  yellow100: "#FCAC12",
+  blue20: "#BDDCFF",
+  blue40: "#8AC0FF",
+  blue60: "#57A5FF",
+  blue80: "#248AFF",
+  blue100: "#0077FF",
+  inactive: "#C6C6C6",
 };
