@@ -3,19 +3,12 @@ import CustomTabBarButton from "@/components/CustomTabBarButton";
 import { Colors } from "@/constants/Colors";
 import { Budget, Home, Plus, Profile, Transaction } from "@/constants/Icons";
 import { useCustomTabBar } from "@/context/CustomTabBarContext";
-import {
-  BottomTabBar,
-  createBottomTabNavigator,
-} from "@react-navigation/bottom-tabs";
+import { BottomTabBar } from "@react-navigation/bottom-tabs";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import BudgetPage from "./budget";
-import HomePage from "./home";
-import ProfilePage from "./profile";
-import TransactionPage from "./transaction";
 import Svg, { Path } from "react-native-svg";
+import { Tabs } from "expo-router";
 
 const TabLayout = () => {
-  const Tabs = createBottomTabNavigator();
   const { opened, toggleOpened } = useCustomTabBar();
 
   const TabBarButton = (props: any) => (
@@ -29,7 +22,7 @@ const TabLayout = () => {
   );
 
   return (
-    <Tabs.Navigator
+    <Tabs
       initialRouteName="home"
       screenOptions={{
         headerShown: false,
@@ -46,7 +39,6 @@ const TabLayout = () => {
     >
       <Tabs.Screen
         name="home"
-        component={HomePage}
         options={{
           title: "Home",
           tabBarItemStyle: {
@@ -62,7 +54,6 @@ const TabLayout = () => {
       />
       <Tabs.Screen
         name="transaction"
-        component={TransactionPage}
         options={{
           title: "Transaction",
           tabBarItemStyle: {
@@ -78,10 +69,8 @@ const TabLayout = () => {
       />
       <Tabs.Screen
         name="add"
-        component={HomePage}
         options={{
           tabBarButton: () => (
-            // <AddButton opened={opened} toggleOpened={toggleOpened} />
             <View
               style={{
                 justifyContent: "center",
@@ -113,7 +102,6 @@ const TabLayout = () => {
       />
       <Tabs.Screen
         name="budget"
-        component={BudgetPage}
         options={{
           title: "Budget",
           tabBarItemStyle: {
@@ -129,7 +117,6 @@ const TabLayout = () => {
       />
       <Tabs.Screen
         name="profile"
-        component={ProfilePage}
         options={{
           title: "Profile",
           tabBarItemStyle: {
@@ -143,7 +130,7 @@ const TabLayout = () => {
           tabPress: (e) => opened && e.preventDefault(),
         }}
       />
-    </Tabs.Navigator>
+    </Tabs>
   );
 };
 
