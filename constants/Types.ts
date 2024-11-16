@@ -1,10 +1,5 @@
 import React from "react";
 
-export type AddButtonProps = {
-  opened: boolean;
-  toggleOpened: () => void;
-};
-
 export type IconProps = {
   colors: string | string[];
   size: number;
