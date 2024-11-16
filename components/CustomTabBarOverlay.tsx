@@ -42,9 +42,15 @@ const CustomTabBarOverlay = ({ params }: Props) => {
   useEffect(() => {
     const animate = opened ? withSpring : withTiming;
 
-    animations.forEach(
-      (anim: any) => (anim.value = animate(opened ? 1 : 0, { duration: 300 })),
-    );
+    if (expandingMode === "staging") {
+      animations.forEach((anim: any, idx: number) => {
+        anim.value = animate(opened ? 1 : 0, { duration: 300 + idx * 100 });
+      });
+    } else {
+      animations.forEach((anim: any) => {
+        anim.value = animate(opened ? 1 : 0, { duration: 300 });
+      });
+    }
   }, [opened, expandingMode]);
 
   const itemsList = data.map((renderExtra: any, idx: number) => {
