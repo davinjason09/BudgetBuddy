@@ -27,7 +27,7 @@ const Button = (props: ButtonProps) => {
       onPress={loading ? undefined : onPress}
       onLongPress={loading ? undefined : onLongPress}
       disabled={disabled}
-      activeOpacity={activeOpacity || 0.8}
+      activeOpacity={activeOpacity || 0.7}
       style={[disabled ? styles.disabled : styles.button, style]}
     >
       {iconLeft}
@@ -44,6 +44,7 @@ const Button = (props: ButtonProps) => {
 const styles = StyleSheet.create({
   button: {
     ...defaultStyles.button,
+    flexDirection: "row",
   },
   text: {
     ...defaultStyles.textTitle3,
