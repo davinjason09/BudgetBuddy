@@ -1,20 +1,26 @@
 import { Colors } from "./Colors";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { Income, Outcome, Transfer } from "./Icons";
+import { Income, Expense, Transfer } from "./Icons";
 
 export const FloatingButtons = [
-  ({ params }: { params?: any }) => (
-    <TouchableOpacity
-      style={[styles.item, { backgroundColor: Colors.green100 }]}
-      onPress={() => console.log("income")}
-    >
-      <Income colors={Colors.light100} size={24} />
-    </TouchableOpacity>
-  ),
+  ({ params }: { params?: any }) => {
+    return (
+      <TouchableOpacity
+        style={[styles.item, { backgroundColor: Colors.green100 }]}
+        onPress={() => {
+          params.push("actions/[type]", { type: "income" });
+        }}
+      >
+        <Income colors={Colors.light100} size={24} />
+      </TouchableOpacity>
+    );
+  },
   ({ params }: { params?: any }) => (
     <TouchableOpacity
       style={[styles.item, { backgroundColor: Colors.blue100 }]}
-      onPress={() => console.log("transfer")}
+      onPress={() => {
+        params.navigate("actions/[type]", { type: "transfer" });
+      }}
     >
       <Transfer colors={Colors.light100} size={24} />
     </TouchableOpacity>
@@ -22,9 +28,11 @@ export const FloatingButtons = [
   ({ params }: { params?: any }) => (
     <TouchableOpacity
       style={[styles.item, { backgroundColor: Colors.red100 }]}
-      onPress={() => console.log("outcome")}
+      onPress={() => {
+        params.navigate("actions/[type]", { type: "expense" });
+      }}
     >
-      <Outcome colors={Colors.light100} size={24} />
+      <Expense colors={Colors.light100} size={24} />
     </TouchableOpacity>
   ),
 ];
