@@ -71,7 +71,7 @@ export const Profile = ({ colors, size }: IconProps) => {
   );
 };
 
-export const Income = ({ colors, size }: IconProps) => {
+export const Expense = ({ colors, size }: IconProps) => {
   if (typeof colors === "string") {
     colors = [colors, colors, colors];
   }
@@ -94,7 +94,7 @@ export const Income = ({ colors, size }: IconProps) => {
   );
 };
 
-export const Outcome = ({ colors, size }: IconProps) => {
+export const Income = ({ colors, size }: IconProps) => {
   if (typeof colors === "string") {
     colors = [colors, colors, colors];
   }
@@ -154,6 +154,210 @@ export const Plus = ({ colors, size }: IconProps) => {
       <Path
         d="m10.9753 10.8992 0 8.0045c-.0008.2642-.1061.5172-.293.7041-.1868.1868-.4399.2921-.7041.293-.2642-.0008-.5174-.1061-.7041-.2929-.1868-.1868-.2922-.44-.2929-.7041l0-8.0045-8.0044 0c-.2642-.0007-.5173-.1061-.7041-.2929-.1868-.1868-.2921-.4399-.2929-.7041.0008-.2642.1061-.5173.2929-.7041s.4399-.2921.7041-.2929l8.0044 0v-8.0044c.0194-.2511.1329-.4856.3177-.6567.1848-.1711.4274-.2661.6793-.2661.2519 0 .4944.095.6793.2661.1848.1711.2983.4056.3177.6567l0 8.0044 8.0045 0c.1374-.0107.2755.0072.4057.0525.1301.0452.2496.117.3507.2106.1011.0936.1819.2072.237.3334.0552.1263.0836.2626.0837.4004s-.0285.2741-.0837.4005c-.0552.1263-.1359.2398-.237.3335-.1012.0936-.2206.1653-.3507.2106-.1302.0453-.2683.0631-.4057.0526l-8.0045 0z"
         fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const Bell = ({ colors, size }: IconProps) => {
+  if (typeof colors === "string") {
+    colors = [colors, colors];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 21 25">
+      <Path
+        d="M20.125 18.5C19.9858 19.2171 19.597 19.8616 19.0276 20.3193C18.4583 20.777 17.7453 21.0181 17.015 21H3.23501C2.50477 21.0181 1.79171 20.777 1.22238 20.3193C0.653051 19.8616 0.264265 19.2171 0.125015 18.5C0.0216261 17.885 0.112458 17.2531 0.384878 16.6921C0.657297 16.1312 1.09776 15.669 1.64501 15.37C1.79286 15.2883 1.91565 15.1679 2.00022 15.0216C2.08479 14.8754 2.12793 14.7089 2.12501 14.54V11C2.12226 9.40408 2.5969 7.84382 3.4879 6.51978C4.37891 5.19575 5.64556 4.16847 7.12501 3.57C7.12899 2.77435 7.44888 2.01287 8.0143 1.45307C8.57972 0.893275 9.34437 0.58102 10.14 0.584998C10.9357 0.588977 11.6971 0.908862 12.2569 1.47428C12.8167 2.03971 13.129 2.80435 13.125 3.6C14.6173 4.25496 15.8855 5.33179 16.7739 6.69803C17.6622 8.06428 18.1318 9.66037 18.125 11.29V14.54C18.1181 14.7049 18.1552 14.8688 18.2325 15.0146C18.3098 15.1605 18.4246 15.2832 18.565 15.37C19.1196 15.6631 19.5684 16.1227 19.8483 16.6842C20.1281 17.2456 20.2249 17.8807 20.125 18.5Z"
+        fill={colors[0]}
+      />
+      <Path
+        d="M10.1251 25C10.8231 24.9958 11.5079 24.809 12.1114 24.4581C12.7149 24.1072 13.216 23.6046 13.5651 23H6.68506C7.03408 23.6046 7.53524 24.1072 8.13872 24.4581C8.7422 24.809 9.427 24.9958 10.1251 25Z"
+        fill={colors[1]}
+      />
+    </Svg>
+  );
+};
+
+export const LeftArrow = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 25 18">
+      <Path
+        d="M23.125 8H2.715l5.41-5.36a1 1 0 1 0-1.41-1.42l-5.71 5.66a3 3 0 0 0 0 4.24l5.66 5.66a1 1 0 0 0 1.41-1.42L2.715 10h20.41a1 1 0 1 0 0-2Z"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const DownArrow = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 20 10">
+      <Path
+        d="M10.125 9.41A5 5 0 0 1 6.585 8L.935 2.29A1 1 0 0 1 2.345.88l5.66 5.66a3.08 3.08 0 0 0 4.24 0l5.66-5.66a1 1 0 0 1 1.41 1.41L13.665 8a5 5 0 0 1-3.54 1.41Z"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const PaperClip = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 20 22">
+      <Path
+        d="M5.595 22a5 5 0 0 1-3.54-8.54l8.48-8.48a3.002 3.002 0 1 1 4.25 4.24l-8.49 8.49a1 1 0 1 1-1.41-1.42l8.48-8.48a1 1 0 1 0-1.41-1.42l-8.49 8.44a3.001 3.001 0 1 0 4.25 4.24l8.48-8.48a5.003 5.003 0 0 0-7.07-7.08l-4.95 5a1 1 0 0 1-1.41-1.41l4.95-5a7 7 0 0 1 9.9 9.9l-8.49 8.48A5.002 5.002 0 0 1 5.595 22Z"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const Camera = ({ colors, size }: IconProps) => {
+  if (typeof colors === "string") {
+    colors = [colors, colors];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 29 24">
+      <Path d="M14.125 18a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" fill={colors[0]} />
+      <Path
+        d="M23.125 4h-.76a1 1 0 0 1-.9-.55l-.34-.69A5 5 0 0 0 16.655 0h-5.06a5 5 0 0 0-4.47 2.76l-.34.69a1 1 0 0 1-.9.55h-.76a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h18a5 5 0 0 0 5-5V9a5 5 0 0 0-5-5Zm-9 16a7 7 0 1 1 0-14 7 7 0 0 1 0 14Zm9-10a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"
+        fill={colors[1]}
+      />
+    </Svg>
+  );
+};
+
+export const Picture = ({ colors, size }: IconProps) => {
+  if (typeof colors === "string") {
+    colors = [colors, colors];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 29 24">
+      <Path
+        d="M21.125 12.28a3 3 0 0 0-4.24 0L5.125 24h18a5 5 0 0 0 4.65-3.2c0-.12.09-.25.13-.38l.12-.42c.034-.162.057-.325.07-.49a.533.533 0 0 0 0-.13.09.09 0 0 0 0-.05l-6.97-7.05Z"
+        fill={colors[0]}
+      />
+      <Path
+        d="M28.125 4.52a5 5 0 0 0-5-4.52h-18a5 5 0 0 0-5 4.52 3.15 3.15 0 0 0 0 .48v14c-.01.17-.01.34 0 .51.024.172.057.342.1.51a7 7 0 0 0 1.8 2.86c.262.212.547.393.85.54l12.57-12.56a5 5 0 0 1 7.08 0l5.6 5.6V5c.012-.16.012-.32 0-.48ZM6.125 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"
+        fill={colors[1]}
+      />
+    </Svg>
+  );
+};
+
+export const Document = ({ colors, size }: IconProps) => {
+  if (typeof colors === "string") {
+    colors = [colors, colors];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 28">
+      <Path
+        d="M24 10v13a5 5 0 0 1-5 5H5a5 5 0 0 1-5-5V5a5 5 0 0 1 5-5h9v7a3 3 0 0 0 3 3h7Z"
+        fill={colors[0]}
+      />
+      <Path
+        d="M23.91 8H17a1 1 0 0 1-1-1V.09a5.76 5.76 0 0 1 3.12 1.62l3.17 3.17A5.79 5.79 0 0 1 23.91 8Z"
+        fill={colors[1]}
+      />
+    </Svg>
+  );
+};
+
+export const Wallet = ({ colors, size }: IconProps) => {
+  if (typeof colors === "string") {
+    colors = [colors, colors];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24">
+      <Path
+        d="M19.91 4.09A4.6 4.6 0 0 0 19 4H7a1 1 0 0 1 0-2h12a5 5 0 0 0-4-2H5a5 5 0 0 0-4 2 4.94 4.94 0 0 0-1 3v14a5 5 0 0 0 5 5h14a5 5 0 0 0 5-5V9a5 5 0 0 0-4.09-4.91ZM17.24 17c-.08.01-.16.01-.24 0a3 3 0 0 1 0-6 2.77 2.77 0 0 1 1 .18 3 3 0 0 1-.76 5.8V17Z"
+        fill={colors[0]}
+      />
+      <Path d="M17 15a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill={colors[1]} />
+    </Svg>
+  );
+};
+
+export const Gear = ({ colors, size }: IconProps) => {
+  if (typeof colors === "string") {
+    colors = [colors, colors];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24">
+      <Path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" fill={colors[0]} />
+      <Path
+        d="m21.79 13-.38-.23a.94.94 0 0 1 0-1.62l.38-.23a3 3 0 0 0 1.1-4.09l-1-1.74A3 3 0 0 0 17.79 4l-.32.18A1 1 0 0 1 16 3.36V3a3 3 0 0 0-3-3h-2a3 3 0 0 0-3 3v.36a1 1 0 0 1-1.48.86L6.21 4a3 3 0 0 0-4.1 1.09l-1 1.74A3 3 0 0 0 2.21 11l.38.23a.94.94 0 0 1 0 1.62l-.38.15a3 3 0 0 0-1.1 4.09l1 1.74A2.999 2.999 0 0 0 6.21 20l.31-.17a1 1 0 0 1 1 0 1 1 0 0 1 .49.84V21a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3v-.37a1 1 0 0 1 1.5-.84l.31.18a3 3 0 0 0 4.1-1.09l1-1.74A3.002 3.002 0 0 0 21.79 13ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"
+        fill={colors[1]}
+      />
+    </Svg>
+  );
+};
+
+export const Upload = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path
+        stroke={colors}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 17V1.24M4.93 7.24l5.66-5.65a2 2 0 0 1 2.82 0l5.66 5.65M23 17v4a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-4"
+      />
+    </Svg>
+  );
+};
+
+export const Logout = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path
+        stroke={colors}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M15 4V3a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1M7 12h15.83M19.59 7.76l2.82 2.83a2 2 0 0 1 0 2.82l-2.82 2.83"
+      />
+    </Svg>
+  );
+};
+
+export const Pencil = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path
+        stroke={colors}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="m20.315 8.46-12 12a2.06 2.06 0 0 1-1 .54l-3.54.71a2 2 0 0 1-2.35-2.35l.7-3.51a2.06 2.06 0 0 1 .54-1L14.505 3a4.15 4.15 0 0 1 5.94 0 4 4 0 0 1-.13 5.51v-.05Z"
       />
     </Svg>
   );
