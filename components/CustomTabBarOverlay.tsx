@@ -44,7 +44,7 @@ const CustomTabBarOverlay = ({ params }: Props) => {
 
     if (expandingMode === "staging") {
       animations.forEach((anim: any, idx: number) => {
-        anim.value = animate(opened ? 1 : 0, { duration: 300 + idx * 100 });
+        anim.value = animate(opened ? 1 : 0, { duration: 300 + idx * 50 });
       });
     } else {
       animations.forEach((anim: any) => {
