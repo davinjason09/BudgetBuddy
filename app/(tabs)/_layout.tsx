@@ -1,12 +1,13 @@
+import { Tabs } from "expo-router";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import Svg, { Path } from "react-native-svg";
+
 import CustomBottomTabWrapper from "@/components/CustomBottomTabWrapper";
 import CustomTabBarButton from "@/components/CustomTabBarButton";
 import { Colors } from "@/constants/Colors";
 import { Budget, Home, Plus, Profile, Transaction } from "@/constants/Icons";
 import { useCustomTabBar } from "@/context/CustomTabBarContext";
 import { BottomTabBar } from "@react-navigation/bottom-tabs";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import Svg, { Path } from "react-native-svg";
-import { Tabs } from "expo-router";
 
 const TabLayout = () => {
   const { opened, toggleOpened } = useCustomTabBar();
