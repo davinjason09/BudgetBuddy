@@ -80,7 +80,11 @@ const CustomTabBarOverlay = ({ params }: Props) => {
       ],
     }));
 
-    const handleTouchEnd = () => toggleOpened();
+    const handleTouchEnd = () => {
+      setTimeout(() => {
+        toggleOpened();
+      }, 1000);
+    };
 
     return (
       <Animated.View
