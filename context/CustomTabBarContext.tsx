@@ -2,14 +2,13 @@ import {
   CustomTabBarContextProps,
   CustomTabBarOverlayProps,
 } from "@/constants/Types";
-import React, { useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-export const CustomTabBarContext =
-  React.createContext<CustomTabBarContextProps>({
-    data: [],
-    opened: false,
-    toggleOpened: () => {},
-  });
+export const CustomTabBarContext = createContext<CustomTabBarContextProps>({
+  data: [],
+  opened: false,
+  toggleOpened: () => {},
+});
 
 type Props = Pick<CustomTabBarContextProps, "data"> & {
   children: React.ReactNode;
