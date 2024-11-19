@@ -362,3 +362,18 @@ export const Pencil = ({ colors, size }: IconProps) => {
     </Svg>
   );
 };
+
+export const Cross = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 16 16">
+      <Path
+        d="m9.535 8 5.66-5.66a1 1 0 1 0-1.41-1.41l-5.66 5.66L2.465.93a1 1 0 0 0-1.41 1.41L6.715 8l-5.66 5.66a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l5.66-5.66 5.66 5.66a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41L9.535 8Z"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
