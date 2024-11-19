@@ -51,7 +51,7 @@ const Actions = () => {
 
   useEffect(() => {
     if (fileData === "") bottomSheetRef.current?.snapToIndex(0);
-  }, [fileData]);
+  }, [snapPoints]);
 
   let background: string;
 
