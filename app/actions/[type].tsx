@@ -38,7 +38,7 @@ const Actions = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => {
     if (type === "transfer") return fileData ? ["70%", "90%"] : ["70%"];
-    else return fileData ? ["77%", "100%"] : ["77%"];
+    else return fileData ? ["77%", "90%"] : ["77%"];
   }, [fileData]);
 
   const resetValue = () => {
@@ -78,7 +78,7 @@ const Actions = () => {
   );
 
   return (
-    <KeyboardAvoidingView
+    <View
       style={[defaultStyles.pageContainer, { backgroundColor: background }]}
     >
       <Stack.Screen
@@ -190,7 +190,7 @@ const Actions = () => {
           </BottomSheetView>
         </BottomSheet>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 
