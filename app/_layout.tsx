@@ -32,7 +32,12 @@ const RootLayout = () => {
   }, [fontLoaded]);
 
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        animation: "slide_from_right",
+        statusBarAnimation: "fade",
+      }}
+    >
       <Stack.Screen name="index" />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
