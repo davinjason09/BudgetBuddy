@@ -53,7 +53,7 @@ const CustomTabBarOverlay = ({ params }: Props) => {
     }
   }, [opened, expandingMode]);
 
-  const itemsList = data.map((renderExtra: any, idx: number) => {
+  const itemsList = data.map((renderExtra, idx) => {
     const angle = COMMON_DEGREES + angleStep * idx + angleStep / 2;
 
     const x =
