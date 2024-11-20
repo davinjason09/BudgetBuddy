@@ -7,20 +7,34 @@ import TabContainer from "@/components/TabContainer";
 import { Colors } from "@/constants/Colors";
 import { Bell } from "@/constants/Icons";
 import { defaultStyles } from "@/constants/Styles";
+import { LinearGradient } from "expo-linear-gradient";
 
 const HomePage = () => {
   const inset = useSafeAreaInsets();
   const image = require("@/assets/images/Default_Avatar.png");
+  const month = new Date().toLocaleString("id-ID", { month: "long" });
 
   return (
     <TabContainer>
       <StatusBar style="dark" />
       <View style={[defaultStyles.pageContainer]}>
-        <View style={styles.info}>
+        <LinearGradient
+          style={styles.info}
+          colors={["#FFF6E5", "#FFF6E5", "#FFF6E5", Colors.light100]}
+        >
           <View
             style={[styles.titleRow, styles.row, { paddingTop: inset.top }]}
           >
-            <Image source={image} style={styles.avatar} />
+            <View style={styles.avatarOverlay}>
+              <Image source={image} style={styles.avatar} />
+            </View>
+            <View style={styles.month}>
+              <Text
+                style={[defaultStyles.textRegular2, { fontWeight: "bold" }]}
+              >
+                {month}
+              </Text>
+            </View>
             <Bell colors={Colors.violet100} size={24} />
           </View>
           <View style={{ justifyContent: "center", alignSelf: "center" }}>
@@ -31,7 +45,7 @@ const HomePage = () => {
             <Overview type="income" amount={5000} />
             <Overview type="expense" amount={1200} />
           </View>
-        </View>
+        </LinearGradient>
       </View>
     </TabContainer>
   );
@@ -50,11 +64,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
+  month: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderColor: "#E4E4ED",
+    borderWidth: 1,
+    height: 40,
+    borderRadius: 20,
+  },
   info: {
     height: "42.5%",
-    backgroundColor: "#FFF6E5",
     borderBottomLeftRadius: 32,
     borderBottomRightRadius: 32,
+  },
+  avatarOverlay: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: Colors.violet80,
   },
   avatar: {
     width: 32,
@@ -63,6 +96,7 @@ const styles = StyleSheet.create({
   },
   balanceTitle: {
     ...defaultStyles.textRegular1,
+    fontWeight: "bold",
     color: "#91919F",
     alignSelf: "center",
     marginBottom: 9,
