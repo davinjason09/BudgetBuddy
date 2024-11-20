@@ -74,7 +74,7 @@ const Chip = (props: ChipProps) => {
   };
 
   return (
-    <Pressable onPress={() => onPress?.(props.value)}>
+    <Pressable onPress={() => onPress(props.value)}>
       <Animated.View
         style={[styles.container, selectedChipStyle, border, style]}
       >
@@ -95,10 +95,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 24,
+    maxWidth: 200,
+    maxHeight: 50,
     gap: 8,
   },
   text: {
     ...defaultStyles.textRegular3,
+    fontSize: 14,
   },
 });
 
