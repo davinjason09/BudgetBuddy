@@ -32,6 +32,18 @@ export type PickerProps = {
   onChange: (item: any) => void;
 };
 
+export type ChipProps = {
+  variant: "default" | "outlined";
+  query: string;
+  text?: string;
+  icon?: React.ReactNode;
+  value: string;
+  onPress?: (value: string) => void;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  selectedStyle?: StyleProp<ViewStyle>;
+};
+
 export type CustomTabBarPassThroughParams = {
   params?: any;
 };
