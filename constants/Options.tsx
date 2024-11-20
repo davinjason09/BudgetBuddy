@@ -17,3 +17,16 @@ export const categories = [
   { label: "Salary", value: "salary" },
   { label: "Other", value: "other" },
 ];
+
+export const filters = [
+  { label: "Income", value: "income" },
+  { label: "Expense", value: "expense" },
+  { label: "Transfer", value: "transfer" },
+];
+
+export const sorts = [
+  { label: "Highest", value: "highest" },
+  { label: "Lowest", value: "lowest" },
+  { label: "Newest", value: "newest" },
+  { label: "Oldest", value: "oldest" },
+];
