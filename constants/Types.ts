@@ -38,7 +38,7 @@ export type ChipProps = {
   text?: string;
   icon?: React.ReactNode;
   value: string;
-  onPress?: (value: string) => void;
+  onPress: (value: string) => void;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   selectedStyle?: StyleProp<ViewStyle>;
