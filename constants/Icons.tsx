@@ -193,6 +193,21 @@ export const LeftArrow = ({ colors, size }: IconProps) => {
   );
 };
 
+export const RightChevron = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 10 20">
+      <Path
+        d="M1.59 19.49a1.001 1.001 0 0 1-.71-.3 1 1 0 0 1 0-1.41l5.66-5.66a3 3 0 0 0 0-4.24L.88 2.22A1 1 0 0 1 2.29.81L8 6.46a5 5 0 0 1 0 7.08l-5.66 5.65a1 1 0 0 1-.75.3Z"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
 export const DownArrow = ({ colors, size }: IconProps) => {
   if (typeof colors === "object") {
     colors = colors[0];
@@ -373,6 +388,40 @@ export const Cross = ({ colors, size }: IconProps) => {
       <Path
         d="m9.535 8 5.66-5.66a1 1 0 1 0-1.41-1.41l-5.66 5.66L2.465.93a1 1 0 0 0-1.41 1.41L6.715 8l-5.66 5.66a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l5.66-5.66 5.66 5.66a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41L9.535 8Z"
         fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const Filter = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 18">
+      <Path
+        d="M23 2H1a1 1 0 0 1 0-2h22a1 1 0 1 1 0 2ZM19 10H5a1 1 0 0 1 0-2h14a1 1 0 1 1 0 2ZM15 18H9a1 1 0 0 1 0-2h6a1 1 0 0 1 0 2Z"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const Calendar = ({ colors, size }: IconProps) => {
+  if (typeof colors === "string") {
+    colors = [colors, colors];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 26">
+      <Path
+        d="M19.593 2.882H18.31V1.599a1.283 1.283 0 0 0-2.565 0v1.283H8.049V1.599a1.283 1.283 0 1 0-2.566 0v1.283H4.201A3.848 3.848 0 0 0 .353 6.73v15.392A3.848 3.848 0 0 0 4.2 25.97h15.392a3.848 3.848 0 0 0 3.848-3.848V6.73a3.848 3.848 0 0 0-3.848-3.848ZM4.2 5.447h1.282V6.73a1.283 1.283 0 0 0 2.566 0V5.447h7.696V6.73a1.283 1.283 0 0 0 2.565 0V5.447h1.283a1.283 1.283 0 0 1 1.282 1.283v5.13H2.918V6.73A1.283 1.283 0 0 1 4.2 5.447Zm15.392 17.957H4.2a1.283 1.283 0 0 1-1.283-1.282v-7.696h17.957v7.696a1.283 1.283 0 0 1-1.282 1.282Z"
+        fill={colors[0]}
+      />
+      <Path
+        d="M6.766 19.557a1.283 1.283 0 1 0 0-2.566 1.283 1.283 0 0 0 0 2.566ZM17.027 16.991h-5.13a1.282 1.282 0 1 0 0 2.566h5.13a1.283 1.283 0 0 0 0-2.566Z"
+        fill={colors[1]}
       />
     </Svg>
   );
