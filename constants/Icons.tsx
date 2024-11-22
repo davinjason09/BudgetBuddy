@@ -208,6 +208,21 @@ export const RightChevron = ({ colors, size }: IconProps) => {
   );
 };
 
+export const LeftChevron = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 10 20">
+      <Path
+        d="M8.41 19.49a1 1 0 0 1-.7-.3l-5.66-5.65a5 5 0 0 1 0-7.08L7.71.81a1 1 0 0 1 1.41 1.41L3.46 7.88a3 3 0 0 0 0 4.24l5.66 5.66a1 1 0 0 1 0 1.41.998.998 0 0 1-.71.3Z"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
 export const DownArrow = ({ colors, size }: IconProps) => {
   if (typeof colors === "object") {
     colors = colors[0];
