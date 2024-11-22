@@ -1,35 +1,39 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { months } from "@/constants/Options";
-import { useState } from "react";
+import { useEffect } from "react";
 import { LeftChevron, RightChevron } from "@/constants/Icons";
 import { Colors } from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
+import { MonthYearSelectorProps } from "@/constants/Types";
 
-const MonthYearSelector = () => {
+const MonthYearSelector = (props: MonthYearSelectorProps) => {
+  const { monthID, year, setMonthID, setYear } = props;
   const monthArray = months.map((month) => month.full);
-  const currentYear = new Date().getFullYear();
+  const currentYear = year;
+  let monthName = monthArray[monthID];
 
-  const [month, setMonth] = useState(monthArray[new Date().getMonth()]);
-  const [year, setYear] = useState(currentYear);
+  useEffect(() => {
+    monthName = monthArray[monthID];
+  }, [monthID]);
 
   const handlePrev = () => {
-    const index = monthArray.indexOf(month);
+    const index = monthArray.indexOf(monthName);
     if (index === 0) {
-      setMonth(monthArray[11]);
+      setMonthID(11);
       setYear(year - 1);
     } else {
-      setMonth(monthArray[index - 1]);
+      setMonthID(index - 1);
     }
   };
 
   const handleNext = () => {
-    const index = monthArray.indexOf(month);
+    const index = monthArray.indexOf(monthName);
     if (index === 11) {
-      setMonth(monthArray[0]);
+      setMonthID(0);
       setYear(year + 1);
     } else {
-      setMonth(monthArray[index + 1]);
+      setMonthID(index + 1);
     }
   };
 
@@ -45,7 +49,7 @@ const MonthYearSelector = () => {
       <View style={styles.month}>
         <Text
           style={styles.text}
-        >{`${month + (year !== currentYear ? ` ${year}` : "")}`}</Text>
+        >{`${monthName + (year !== currentYear ? ` ${year}` : "")}`}</Text>
       </View>
       <TouchableOpacity
         style={styles.arrow}
