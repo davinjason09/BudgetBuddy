@@ -43,6 +43,13 @@ export type ChipProps = {
   selectedStyle?: StyleProp<ViewStyle>;
 };
 
+export type MonthYearSelectorProps = {
+  monthID: number;
+  year: number;
+  setMonthID: (monthID: number) => void;
+  setYear: (year: number) => void;
+};
+
 export type CustomTabBarPassThroughParams = {
   params?: any;
 };
