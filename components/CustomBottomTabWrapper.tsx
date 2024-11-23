@@ -1,17 +1,15 @@
-import { CustomTabBarPassThroughParams } from "@/constants/Types";
-import * as React from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import CustomTabBarOverlay from "./CustomTabBarOverlay";
 
-type Props = Pick<CustomTabBarPassThroughParams, "params"> & {
+type Props = {
   children: React.ReactNode;
 };
 
 const { width: screenWidth } = Dimensions.get("screen");
 
-const CustomBottomTabWrapper = ({ children, params }: Props) => (
+const CustomBottomTabWrapper = ({ children }: Props) => (
   <View pointerEvents="box-none" style={styles.container}>
-    <CustomTabBarOverlay params={params} />
+    <CustomTabBarOverlay />
     {children}
   </View>
 );

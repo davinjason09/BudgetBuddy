@@ -50,19 +50,13 @@ export type MonthYearSelectorProps = {
   setYear: (year: number) => void;
 };
 
-export type CustomTabBarPassThroughParams = {
-  params?: any;
-};
-
 export type CustomTabBarOverlayProps = {
   iconSize?: number;
   overlayRadius?: number;
   expandingMode?: "staging" | "flat";
 };
 
-export type CustomTabBarExtrasRender = (
-  props: CustomTabBarPassThroughParams,
-) => React.ReactNode;
+export type CustomTabBarExtrasRender = () => React.ReactNode;
 
 export type CustomTabBarContextProps = {
   data: CustomTabBarExtrasRender[];

@@ -1,7 +1,4 @@
-import {
-  CustomTabBarOverlayProps,
-  CustomTabBarPassThroughParams,
-} from "@/constants/Types";
+import { CustomTabBarOverlayProps } from "@/constants/Types";
 import { useCustomTabBar } from "@/context/CustomTabBarContext";
 import React, { useEffect, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
@@ -15,9 +12,7 @@ import Animated, {
 
 const COMMON_DEGREES = 180;
 
-type Props = Pick<CustomTabBarPassThroughParams, "params">;
-
-const CustomTabBarOverlay = ({ params }: Props) => {
+const CustomTabBarOverlay = () => {
   const { data, opened, overlayProps, toggleOpened } = useCustomTabBar();
   const { expandingMode, iconSize, overlayRadius } = useMemo<
     Required<CustomTabBarOverlayProps>
@@ -92,7 +87,7 @@ const CustomTabBarOverlay = ({ params }: Props) => {
         style={[styles.itemContainer, animatedStyle]}
         onTouchEnd={handleTouchEnd}
       >
-        {renderExtra({ params })}
+        {renderExtra()}
       </Animated.View>
     );
   });
