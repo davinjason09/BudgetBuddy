@@ -61,6 +61,11 @@ const TransactionPage = () => {
     bottomSheetModalRef.current?.present();
   };
 
+  const resetValue = () => {
+    setFilter("income");
+    setSort("highest");
+  };
+
   return (
     <TabContainer>
       <View style={[defaultStyles.pageContainer, { paddingTop: inset.top }]}>
@@ -111,7 +116,7 @@ const TransactionPage = () => {
             </Text>
             <Button
               title="Reset"
-              onPress={() => {}}
+              onPress={resetValue}
               style={styles.reset}
               textStyle={[styles.buttonText, { fontSize: 14 }]}
               disabled={false}
@@ -134,7 +139,7 @@ const TransactionPage = () => {
                 query={filter}
                 text={item.label}
                 value={item.value}
-                style={{ width: 104 }}
+                style={{ width: 104, height: 42 }}
                 onPress={(value) => setFilter(value)}
               />
             )}
@@ -156,7 +161,7 @@ const TransactionPage = () => {
                   query={sort}
                   text={item.label}
                   value={item.value}
-                  style={{ width: 100 }}
+                  style={{ width: 100, height: 42 }}
                   onPress={(value) => setSort(value)}
                 />
               )}
