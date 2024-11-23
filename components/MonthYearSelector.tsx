@@ -10,7 +10,7 @@ import { MonthYearSelectorProps } from "@/constants/Types";
 const MonthYearSelector = (props: MonthYearSelectorProps) => {
   const { monthID, year, setMonthID, setYear } = props;
   const monthArray = months.map((month) => month.full);
-  const currentYear = year;
+  const currentYear = new Date().getFullYear();
   let monthName = monthArray[monthID];
 
   useEffect(() => {
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   arrow: {
-    height: 32,
-    width: 32,
+    height: 36,
+    width: 36,
     justifyContent: "center",
     alignItems: "center",
   },
