@@ -1,12 +1,26 @@
+import {
+  BankJago,
+  BankOfAmerica,
+  BCA,
+  Chase,
+  CitiBank,
+  Mandiri,
+  Paypal,
+} from "./Icons";
+
 export const banks = [
-  { label: "Chase Bank", value: "chase" },
-  { label: "Paypal", value: "paypal" },
-  { label: "Citi Bank", value: "citi" },
-  { label: "Bank of America", value: "america" },
-  { label: "Jago", value: "jago" },
-  { label: "Mandiri", value: "mandiri" },
-  { label: "BCA", value: "bca" },
-  { label: "Other", value: "other" },
+  { label: "Chase Bank", value: "chase", icon: <Chase size={24} /> },
+  { label: "Paypal", value: "paypal", icon: <Paypal size={24} /> },
+  { label: "Citi Bank", value: "citi", icon: <CitiBank size={24} /> },
+  {
+    label: "Bank of America",
+    value: "america",
+    icon: <BankOfAmerica size={32} />,
+  },
+  { label: "Jago", value: "jago", icon: <BankJago size={24} /> },
+  { label: "Mandiri", value: "mandiri", icon: <Mandiri size={48} /> },
+  { label: "BCA", value: "bca", icon: <BCA size={32} /> },
+  { label: "Other", value: "other", icon: null },
 ];
 
 export const categories = [
