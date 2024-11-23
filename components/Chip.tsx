@@ -79,9 +79,11 @@ const Chip = (props: ChipProps) => {
         style={[styles.container, selectedChipStyle, border, style]}
       >
         {props.icon}
-        <Animated.Text style={[styles.text, textColorStyle, textStyle]}>
-          {props.text}
-        </Animated.Text>
+        {props.text && (
+          <Animated.Text style={[styles.text, textColorStyle, textStyle]}>
+            {props.text}
+          </Animated.Text>
+        )}
       </Animated.View>
     </Pressable>
   );
@@ -92,8 +94,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 24,
-    paddingVertical: 12,
     borderRadius: 24,
     maxWidth: 200,
     maxHeight: 50,
