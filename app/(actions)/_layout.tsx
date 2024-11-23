@@ -11,7 +11,7 @@ const ActionLayout = () => {
   return (
     <Stack>
       <Stack.Screen
-        name="[type]"
+        name="type"
         options={{
           headerTitleAlign: "center",
           headerShadowVisible: false,
@@ -29,11 +29,10 @@ const ActionLayout = () => {
         }}
       />
       <Stack.Screen
-        name="[wallet]"
+        name="wallet"
         options={{
           headerTitleAlign: "center",
           headerShadowVisible: false,
-          headerTitleStyle: defaultStyles.textTitle3,
           headerTransparent: true,
           headerLeft: () => (
             <TouchableOpacity
