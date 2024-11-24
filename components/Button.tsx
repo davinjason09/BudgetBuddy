@@ -43,7 +43,7 @@ const Button = (props: ButtonProps) => {
 
 const styles = StyleSheet.create({
   button: {
-    ...defaultStyles.button,
+    ...defaultStyles.primaryButton,
     flexDirection: "row",
   },
   text: {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     color: Colors.light100,
   },
   disabled: {
-    ...defaultStyles.button,
+    ...defaultStyles.primaryButton,
     backgroundColor: Colors.dark25,
   },
 });
