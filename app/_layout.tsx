@@ -1,15 +1,17 @@
+import { useFonts } from "expo-font";
+import { SplashScreen, Stack, useRouter } from "expo-router";
+import { useEffect } from "react";
+import { TouchableOpacity } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import { Colors } from "@/constants/Colors";
 import { FloatingButtons } from "@/constants/FloatingButtons";
 import { LeftArrow } from "@/constants/Icons";
 import { defaultStyles } from "@/constants/Styles";
 import CustomTabBarProvider from "@/context/CustomTabBarContext";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { useFonts } from "expo-font";
-import { SplashScreen, useRouter } from "expo-router";
-import { Stack } from "expo-router";
-import { useEffect } from "react";
-import { TouchableOpacity } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SQLiteProvider } from "expo-sqlite";
+import { migrateDBIfNeeded } from "@/utils/Database";
 
 const RootLayout = () => {
   SplashScreen.preventAutoHideAsync();
@@ -69,9 +71,11 @@ const RootLayoutNav = () => {
       data={FloatingButtons}
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <BottomSheetModalProvider>
-          <RootLayout />
-        </BottomSheetModalProvider>
+        <SQLiteProvider databaseName="app.db" onInit={migrateDBIfNeeded}>
+          <BottomSheetModalProvider>
+            <RootLayout />
+          </BottomSheetModalProvider>
+        </SQLiteProvider>
       </GestureHandlerRootView>
     </CustomTabBarProvider>
   );
