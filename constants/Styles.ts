@@ -18,9 +18,19 @@ export const defaultStyles = StyleSheet.create({
   },
 
   // Button
-  button: {
+  primaryButton: {
     width: "85%",
     backgroundColor: Colors.violet100,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    gap: 10,
+    borderRadius: 16,
+    height: 56,
+  },
+  secondaryButton: {
+    width: "85%",
+    backgroundColor: Colors.violet20,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -32,22 +42,22 @@ export const defaultStyles = StyleSheet.create({
   // Text Styles
   textTitleX: {
     fontSize: 64,
-    fontWeight: "700",
+    fontWeight: "bold",
     fontFamily: "Inter",
   },
   textTitle1: {
     fontSize: 32,
-    fontWeight: "700",
+    fontWeight: "bold",
     fontFamily: "Inter",
   },
   textTitle2: {
     fontSize: 24,
-    fontWeight: "600",
+    fontWeight: "bold",
     fontFamily: "Inter",
   },
   textTitle3: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "bold",
     fontFamily: "Inter",
   },
   textRegular1: {
