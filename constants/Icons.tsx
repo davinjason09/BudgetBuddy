@@ -442,6 +442,49 @@ export const Calendar = ({ colors, size }: IconProps) => {
   );
 };
 
+export const Eye = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors![0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 18" fill="none">
+      <Path
+        d="M12 1.5A12 12 0 0 0 1.32 8.05a2.06 2.06 0 0 0 0 1.9 12 12 0 0 0 21.36 0 2.06 2.06 0 0 0 0-1.9A12 12 0 0 0 12 1.5"
+        stroke={colors}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M12 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"
+        stroke={colors}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+};
+
+export const EyeShut = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors![0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 21" fill="none">
+      <Path
+        d="m20.912 1.143-9 9-9 9m9-15.988a12 12 0 0 0-10.68 6.55 2.06 2.06 0 0 0 0 1.9 12 12 0 0 0 21.36 0 2.06 2.06 0 0 0 0-1.9 12 12 0 0 0-10.68-6.55m3.5 7.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0"
+        stroke={colors}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+};
+
 // Banks
 export const Chase = ({ size }: IconProps) => (
   <Svg width={size} height={size} viewBox="0 0 24 24">
@@ -566,6 +609,27 @@ export const BCA = ({ size }: IconProps) => (
     <Path
       d="M12.238.15c2.65.015 4.147 1.5 4.147 3.645 0 1.977-1.58 3.727-3.313 4.632 1.785.677 1.939 2.34 1.939 3.516 0 2.841-2.762 5.496-6.353 5.496H.828L3.883 5.265l-1.255-.007L5.193.15s4.89-.015 7.045 0m-2.6 7.01c.548 0 1.516-.143 1.758-1.238.265-1.189-.643-1.221-1.079-1.221L8.76 4.694 8.217 7.16zm-2.2 3.055-.718 2.842h1.833c.721 0 1.704-.37 1.945-1.295.238-.927-.45-1.547-1.168-1.547"
       fill="#0060AF"
+    />
+  </Svg>
+);
+
+export const Google = ({ size }: IconProps) => (
+  <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+    <Path
+      d="M29.074 13.389H28v-.056H16v5.333h7.535C22.436 21.772 19.482 24 16 24a8 8 0 0 1 0-16c2.04 0 3.895.77 5.307 2.026l3.772-3.771A13.27 13.27 0 0 0 16 2.667C8.637 2.667 2.667 8.637 2.667 16S8.637 29.333 16 29.333 29.333 23.363 29.333 16c0-.894-.092-1.767-.259-2.611"
+      fill="#FFC107"
+    />
+    <Path
+      d="m4.204 9.794 4.38 3.213A8 8 0 0 1 16 8c2.04 0 3.895.77 5.307 2.026l3.772-3.771A13.27 13.27 0 0 0 16 2.667c-5.121 0-9.563 2.89-11.796 7.127"
+      fill="#FF3D00"
+    />
+    <Path
+      d="M16 29.333c3.444 0 6.573-1.318 8.94-3.461l-4.128-3.492A7.94 7.94 0 0 1 16 24c-3.468 0-6.413-2.211-7.522-5.297l-4.348 3.35c2.207 4.318 6.688 7.28 11.87 7.28"
+      fill="#4CAF50"
+    />
+    <Path
+      d="M29.074 13.389H28v-.055H16v5.333h7.535a8.03 8.03 0 0 1-2.724 3.714l.002-.002 4.126 3.492c-.292.266 4.394-3.204 4.394-9.87 0-.895-.092-1.768-.259-2.612"
+      fill="#1976D2"
     />
   </Svg>
 );
