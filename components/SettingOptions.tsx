@@ -1,7 +1,13 @@
 import { Colors } from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
-import { TouchableOpacity, View, Text } from "react-native";
-import { StyleSheet, ViewStyle } from "react-native";
+import { RelativePathString, useRouter } from "expo-router";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
 
 type SettingOptionsProps = {
   name: string;
@@ -9,10 +15,13 @@ type SettingOptionsProps = {
   bottom?: boolean;
   icon?: React.ReactNode;
   iconBackground?: string;
+  path?: string;
+  params?: any;
 };
 
 const SettingOptions = (props: SettingOptionsProps) => {
-  const { name, top, bottom, icon, iconBackground } = props;
+  const { name, top, bottom, icon, iconBackground, path, params } = props;
+  const router = useRouter();
 
   const topBorder: ViewStyle = {
     borderTopLeftRadius: 32,
@@ -38,8 +47,17 @@ const SettingOptions = (props: SettingOptionsProps) => {
     ...(!top && !bottom && separator),
   };
 
+  const handlePress = () => {
+    if (path) {
+      router.push({
+        pathname: path as RelativePathString,
+        params: params || {},
+      });
+    }
+  };
+
   return (
-    <TouchableOpacity style={containerStyle}>
+    <TouchableOpacity style={containerStyle} onPress={handlePress}>
       <View style={[styles.icon, { backgroundColor: iconBackground }]}>
         {icon}
       </View>
