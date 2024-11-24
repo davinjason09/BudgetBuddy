@@ -8,6 +8,25 @@ import {
   Paypal,
 } from "./Icons";
 
+export const slides = [
+  {
+    title: "Gain total control of your money",
+    description: "Become your own money manager and make every cent count",
+    image: require("@/assets/images/Slide_1.png"),
+  },
+  {
+    title: "Know where your money goes",
+    description:
+      "Track your transaction easily,\nwith categories and financial report",
+    image: require("@/assets/images/Slide_2.png"),
+  },
+  {
+    title: "Planning ahead",
+    description: "Setup your budget for each category so you in control",
+    image: require("@/assets/images/Slide_3.png"),
+  },
+];
+
 export const banks = [
   { label: "Chase Bank", value: "chase", icon: <Chase size={24} /> },
   { label: "Paypal", value: "paypal", icon: <Paypal size={24} /> },
