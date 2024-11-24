@@ -41,8 +41,42 @@ const RootLayout = () => {
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="login" options={{ headerShown: false }} />
-      <Stack.Screen name="signup" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="login"
+        options={{
+          title: "Login",
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerTitleStyle: defaultStyles.textTitle3,
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => router.back()}
+              style={defaultStyles.arrowContainer}
+            >
+              <LeftArrow size={24} colors={Colors.dark100} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="signup"
+        options={{
+          title: "Sign Up",
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerTitleStyle: defaultStyles.textTitle3,
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => router.back()}
+              style={defaultStyles.arrowContainer}
+            >
+              <LeftArrow size={24} colors={Colors.dark100} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="(details)" options={{ headerShown: false }} />
       <Stack.Screen name="(actions)" options={{ headerShown: false }} />
