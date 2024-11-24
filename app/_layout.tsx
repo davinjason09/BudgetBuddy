@@ -40,10 +40,14 @@ const RootLayout = () => {
         statusBarAnimation: "fade",
       }}
     >
-      <Stack.Screen name="index" />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="login" options={{ headerShown: false }} />
+      <Stack.Screen name="signup" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(details)" options={{ headerShown: false }} />
+      <Stack.Screen name="(actions)" options={{ headerShown: false }} />
       <Stack.Screen
-        name="actions/[type]"
+        name="notification"
         options={{
           headerTitleAlign: "center",
           headerShadowVisible: false,
@@ -56,6 +60,43 @@ const RootLayout = () => {
               style={defaultStyles.arrowContainer}
             >
               <LeftArrow size={24} colors={Colors.light100} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="report"
+        options={{
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerTitleStyle: defaultStyles.textTitle3,
+          headerTransparent: true,
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => router.back()}
+              style={defaultStyles.arrowContainer}
+            >
+              <LeftArrow size={24} colors={Colors.light100} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="account"
+        options={{
+          title: "Account",
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerTitleStyle: defaultStyles.textTitle3,
+          headerTransparent: true,
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => router.back()}
+              style={defaultStyles.arrowContainer}
+            >
+              <LeftArrow size={24} colors={Colors.dark100} />
             </TouchableOpacity>
           ),
         }}
