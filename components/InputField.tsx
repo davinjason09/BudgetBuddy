@@ -1,4 +1,3 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
   KeyboardType,
@@ -9,7 +8,7 @@ import {
 } from "react-native";
 
 import { Colors } from "@/constants/Colors";
-import { Eye, EyeShut } from "@/constants/Icons";
+import { Calendar, Eye, EyeShut } from "@/constants/Icons";
 import { defaultStyles } from "@/constants/Styles";
 
 type InputFieldProps = {
@@ -74,11 +73,7 @@ const InputField = (props: InputFieldProps) => {
 
       {props.calendar && (
         <TouchableOpacity style={styles.calendar} activeOpacity={1}>
-          <MaterialCommunityIcons
-            name="calendar-month-outline"
-            size={20}
-            color={Colors.dark100}
-          />
+          <Calendar size={20} colors={"#91919F"} />
         </TouchableOpacity>
       )}
     </View>
