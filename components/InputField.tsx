@@ -64,16 +64,16 @@ const InputField = (props: InputFieldProps) => {
           onPress={toggleShowPassword}
         >
           {showPassword ? (
-            <EyeShut size={20} colors={"#91919F"} />
+            <EyeShut size={22} colors={"#91919F"} />
           ) : (
-            <Eye size={20} colors={"#91919F"} />
+            <Eye size={22} colors={"#91919F"} />
           )}
         </TouchableOpacity>
       )}
 
       {props.calendar && (
         <TouchableOpacity style={styles.calendar} activeOpacity={1}>
-          <Calendar size={20} colors={"#91919F"} />
+          <Calendar size={22} colors={"#91919F"} />
         </TouchableOpacity>
       )}
     </View>
