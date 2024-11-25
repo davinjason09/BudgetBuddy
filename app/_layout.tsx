@@ -9,9 +9,9 @@ import { FloatingButtons } from "@/constants/FloatingButtons";
 import { LeftArrow } from "@/constants/Icons";
 import { defaultStyles } from "@/constants/Styles";
 import CustomTabBarProvider from "@/context/CustomTabBarContext";
+import { migrateDBIfNeeded } from "@/utils/Database";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { SQLiteProvider } from "expo-sqlite";
-import { migrateDBIfNeeded } from "@/utils/Database";
 
 const RootLayout = () => {
   SplashScreen.preventAutoHideAsync();
@@ -36,7 +36,7 @@ const RootLayout = () => {
   return (
     <Stack
       screenOptions={{
-        animation: "slide_from_right",
+        animation: "fade",
         statusBarAnimation: "fade",
       }}
     >
@@ -63,6 +63,24 @@ const RootLayout = () => {
         name="signup"
         options={{
           title: "Sign Up",
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerTitleStyle: defaultStyles.textTitle3,
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => router.back()}
+              style={defaultStyles.arrowContainer}
+            >
+              <LeftArrow size={24} colors={Colors.dark100} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="forgotpass"
+        options={{
+          title: "Forgot Password",
           headerTitleAlign: "center",
           headerShadowVisible: false,
           headerTitleStyle: defaultStyles.textTitle3,
