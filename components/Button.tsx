@@ -22,20 +22,26 @@ const Button = (props: ButtonProps) => {
     activeOpacity,
     loading,
   } = props;
+
+  const opacity = disabled || loading ? 1 : 0.7;
+
   return (
     <TouchableOpacity
       onPress={loading ? undefined : onPress}
       onLongPress={loading ? undefined : onLongPress}
       disabled={disabled}
-      activeOpacity={activeOpacity || 0.7}
+      activeOpacity={activeOpacity || opacity}
       style={[disabled ? styles.disabled : styles.button, style]}
     >
       {iconLeft}
-      {loading ? (
-        <ActivityIndicator color={Colors.light100} />
-      ) : (
-        <Text style={[styles.text, textStyle]}>{title}</Text>
+      {loading && (
+        <ActivityIndicator
+          color={Colors.light100}
+          size="large"
+          style={styles.loading}
+        />
       )}
+      {title && <Text style={[styles.text, textStyle]}>{title}</Text>}
       {iconRight}
     </TouchableOpacity>
   );
@@ -53,6 +59,15 @@ const styles = StyleSheet.create({
   disabled: {
     ...defaultStyles.primaryButton,
     backgroundColor: Colors.dark25,
+  },
+  loading: {
+    position: "absolute",
+    alignSelf: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    width: "100%",
+    height: 56,
+    borderRadius: 16,
+    zIndex: 1,
   },
 });
 
