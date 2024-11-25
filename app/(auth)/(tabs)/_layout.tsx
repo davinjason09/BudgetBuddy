@@ -33,7 +33,7 @@ const TabLayout = () => {
         tabBarButton: (props) => <TabBarButton {...props} />,
       }}
       tabBar={(props) => (
-        <CustomBottomTabWrapper params={props.navigation}>
+        <CustomBottomTabWrapper>
           <BottomTabBar {...props} />
         </CustomBottomTabWrapper>
       )}

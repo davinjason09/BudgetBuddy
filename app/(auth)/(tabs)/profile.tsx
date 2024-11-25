@@ -28,6 +28,7 @@ const ProfilePage = () => {
           top
           iconBackground={Colors.violet20}
           icon={<Wallet size={24} colors={Colors.violet100} />}
+          path="/(auth)/account"
         />
         <SettingOptions
           name="Settings"
@@ -44,6 +45,7 @@ const ProfilePage = () => {
           bottom
           iconBackground={Colors.red20}
           icon={<Logout size={24} colors={Colors.red100} />}
+          path="/"
         />
       </View>
     </TabContainer>
