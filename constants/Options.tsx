@@ -1,11 +1,18 @@
+import { Colors } from "./Colors";
 import {
   BankJago,
   BankOfAmerica,
   BCA,
   Chase,
   CitiBank,
+  Food,
   Mandiri,
   Paypal,
+  Salary,
+  Shopping,
+  Subscription,
+  Transportation,
+  Wallet,
 } from "./Icons";
 
 export const slides = [
@@ -39,15 +46,44 @@ export const banks = [
   { label: "Jago", value: "jago", icon: <BankJago size={24} /> },
   { label: "Mandiri", value: "mandiri", icon: <Mandiri size={48} /> },
   { label: "BCA", value: "bca", icon: <BCA size={32} /> },
-  { label: "Other", value: "other", icon: null },
+  {
+    label: "Other",
+    value: "other",
+    icon: <Wallet size={24} colors={Colors.violet100} />,
+  },
 ];
 
 export const categories = [
-  { label: "Food", value: "food" },
-  { label: "Transportation", value: "transportation" },
-  { label: "Shopping", value: "shopping" },
-  { label: "Subscription", value: "subscription" },
-  { label: "Salary", value: "salary" },
+  {
+    label: "Food",
+    value: "food",
+    icon: <Food size={30} />,
+    background: Colors.red20,
+  },
+  {
+    label: "Transportation",
+    value: "transportation",
+    icon: <Transportation size={30} />,
+    background: Colors.blue20,
+  },
+  {
+    label: "Shopping",
+    value: "shopping",
+    icon: <Shopping size={30} />,
+    background: Colors.yellow20,
+  },
+  {
+    label: "Subscription",
+    value: "subscription",
+    icon: <Subscription size={30} />,
+    background: Colors.violet20,
+  },
+  {
+    label: "Salary",
+    value: "salary",
+    icon: <Salary size={30} />,
+    background: Colors.green20,
+  },
   { label: "Other", value: "other" },
 ];
 
