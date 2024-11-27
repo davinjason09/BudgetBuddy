@@ -1,13 +1,19 @@
+import { useFocusEffect } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
+import { Storage } from "expo-sqlite/kv-store";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Button from "@/components/Button";
 import Chip from "@/components/Chip";
+import DropDown from "@/components/DropdownMonthSelector";
 import TabContainer from "@/components/TabContainer";
 import { Colors } from "@/constants/Colors";
 import { Calendar, DownArrow, Filter, RightChevron } from "@/constants/Icons";
-import { filters, sorts } from "@/constants/Options";
+import { filters, months, sorts } from "@/constants/Options";
 import { defaultStyles } from "@/constants/Styles";
+import { createDB, dropTables, getTransactionsByMonth } from "@/utils/Database";
 import {
   BottomSheetBackdrop,
   BottomSheetFooter,
@@ -15,21 +21,42 @@ import {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { FlashList } from "@shopify/flash-list";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import TransactionDetail from "@/components/TransactionDetail";
 
 const TransactionPage = () => {
+  const db = useSQLiteContext();
+  const user = Storage.getItemSync("user");
+  const userID = JSON.parse(user!).user_id;
+
   const inset = useSafeAreaInsets();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ["68%"], []);
+  const bottomModalSnapPoints = useMemo(() => ["68%"], []);
+  const currentYear = new Date().getFullYear();
 
-  const [date, setDate] = useState<Date>(new Date());
+  const [year, setYear] = useState<number>(new Date().getFullYear());
+  const [monthID, setMonthID] = useState<number>(new Date().getMonth());
   const [open, setOpen] = useState<boolean>(false);
+  const [dropdown, setDropdown] = useState<boolean>(false);
   const [filter, setFilter] = useState<string>("income");
   const [sort, setSort] = useState<string>("highest");
+  const [transactions, setTransactions] = useState<any[]>([]);
 
   useEffect(() => {
     console.log("Current query:", filter);
+    // clearDB(db);
   }, [filter]);
+
+  useEffect(() => {
+    if (open) setDropdown(true);
+    else setTimeout(() => setDropdown(false), 300);
+  }, [open]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const transaction = getTransactionsByMonth(db, userID, monthID + 1, year);
+      setTransactions(transaction);
+    }, [monthID, year]),
+  );
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -70,18 +97,16 @@ const TransactionPage = () => {
     <TabContainer>
       <View style={[defaultStyles.pageContainer, { paddingTop: inset.top }]}>
         <View style={styles.row}>
-          <View>
-            <Button
-              title="Today"
-              onPress={() => setOpen(true)}
-              iconLeft={<Calendar size={22} colors={Colors.dark100} />}
-              iconRight={<DownArrow size={22} colors={Colors.dark100} />}
-              style={styles.selectorButton}
-              textStyle={styles.selectorText}
-              disabled={false}
-              loading={false}
-            />
-          </View>
+          <Button
+            title={`${months[monthID].short}${year === currentYear ? "" : ` ${year}`}`}
+            onPress={() => setOpen(true)}
+            iconLeft={<Calendar size={20} colors={Colors.dark100} />}
+            iconRight={<DownArrow size={20} colors={Colors.dark100} />}
+            style={styles.selectorButton}
+            textStyle={styles.selectorText}
+            disabled={false}
+            loading={false}
+          />
           <TouchableOpacity style={styles.filter} onPress={handlePress}>
             <Filter size={20} colors={Colors.dark100} />
           </TouchableOpacity>
@@ -89,19 +114,30 @@ const TransactionPage = () => {
 
         <Button
           title="See your financial report"
-          onPress={() => {}}
+          onPress={() => {
+            dropTables(db);
+            createDB(db);
+            console.log("Database dropepd and created");
+          }}
           iconRight={<RightChevron size={20} colors={Colors.violet100} />}
           style={styles.button}
           textStyle={styles.buttonText}
           disabled={false}
           loading={false}
         />
+        <FlashList
+          data={transactions}
+          estimatedItemSize={100}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <TransactionDetail data={item} />}
+          ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+        />
       </View>
 
       <BottomSheetModal
         ref={bottomSheetModalRef}
         index={0}
-        snapPoints={snapPoints}
+        snapPoints={bottomModalSnapPoints}
         backdropComponent={renderBackdrop}
         footerComponent={renderFooter}
         handleIndicatorStyle={{ backgroundColor: Colors.violet40, width: 36 }}
@@ -136,6 +172,7 @@ const TransactionPage = () => {
             renderItem={({ item }) => (
               <Chip
                 variant="outlined"
+                editable={true}
                 query={filter}
                 text={item.label}
                 value={item.value}
@@ -158,6 +195,7 @@ const TransactionPage = () => {
               renderItem={({ item }) => (
                 <Chip
                   variant="outlined"
+                  editable={true}
                   query={sort}
                   text={item.label}
                   value={item.value}
@@ -172,6 +210,17 @@ const TransactionPage = () => {
           </Text>
         </BottomSheetView>
       </BottomSheetModal>
+
+      {dropdown && (
+        <DropDown
+          backdropPress={() => setOpen(false)}
+          opened={open}
+          year={year}
+          setYear={setYear}
+          monthID={monthID}
+          setMonthID={setMonthID}
+        />
+      )}
     </TabContainer>
   );
 };
@@ -187,9 +236,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   selectorButton: {
-    width: 144,
+    paddingHorizontal: 10,
+    justifyContent: "space-between",
+    minWidth: 144,
+    maxWidth: 160,
     height: 40,
-    gap: 8,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: Colors.light40,
