@@ -1,39 +1,53 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { months } from "@/constants/Options";
-import { useEffect } from "react";
-import { LeftChevron, RightChevron } from "@/constants/Icons";
+import {
+  LeftArrow,
+  LeftChevron,
+  RightArrow,
+  RightChevron,
+} from "@/constants/Icons";
 import { Colors } from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
 import { MonthYearSelectorProps } from "@/constants/Types";
 
 const MonthYearSelector = (props: MonthYearSelectorProps) => {
-  const { monthID, year, setMonthID, setYear } = props;
+  const {
+    type,
+    maximum,
+    minimum,
+    monthID,
+    year,
+    setMonthID,
+    setYear,
+    arrowType,
+  } = props;
+
   const monthArray = months.map((month) => month.full);
   const currentYear = new Date().getFullYear();
-  let monthName = monthArray[monthID];
-
-  useEffect(() => {
-    monthName = monthArray[monthID];
-  }, [monthID]);
+  const monthName = monthArray[monthID!];
+  const yearLabel = year === currentYear ? "" : ` ${year}`;
+  const label = type === "monthYear" ? `${monthName}${yearLabel}` : `${year}`;
 
   const handlePrev = () => {
-    const index = monthArray.indexOf(monthName);
-    if (index === 0) {
-      setMonthID(11);
+    if (type === "year") {
+      setYear(year - 1);
+    } else if (monthID === 0) {
+      setMonthID!(11);
       setYear(year - 1);
     } else {
-      setMonthID(index - 1);
+      setMonthID!(monthID! - 1);
     }
   };
 
   const handleNext = () => {
-    const index = monthArray.indexOf(monthName);
-    if (index === 11) {
-      setMonthID(0);
+    if (type === "year") {
+      setYear(year + 1);
+    } else if (monthID === 11) {
+      setMonthID!(0);
       setYear(year + 1);
     } else {
-      setMonthID(index + 1);
+      setMonthID!(monthID! + 1);
     }
   };
 
@@ -44,19 +58,28 @@ const MonthYearSelector = (props: MonthYearSelectorProps) => {
         onPress={handlePrev}
         activeOpacity={0.8}
       >
-        <LeftChevron size={24} colors={Colors.light100} />
+        {arrowType === "arrow" ? (
+          <LeftArrow size={24} colors={props.arrowColor || Colors.light100} />
+        ) : (
+          <LeftChevron size={24} colors={props.arrowColor || Colors.light100} />
+        )}
       </TouchableOpacity>
       <View style={styles.month}>
-        <Text
-          style={styles.text}
-        >{`${monthName + (year !== currentYear ? ` ${year}` : "")}`}</Text>
+        <Text style={[styles.text, props.textStyle]}>{`${label}`}</Text>
       </View>
       <TouchableOpacity
         style={styles.arrow}
         onPress={handleNext}
         activeOpacity={0.8}
       >
-        <RightChevron size={24} colors={Colors.light100} />
+        {arrowType === "arrow" ? (
+          <RightArrow size={24} colors={props.arrowColor || Colors.light100} />
+        ) : (
+          <RightChevron
+            size={24}
+            colors={props.arrowColor || Colors.light100}
+          />
+        )}
       </TouchableOpacity>
     </View>
   );

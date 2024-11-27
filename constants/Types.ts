@@ -44,10 +44,17 @@ export type ChipProps = {
 };
 
 export type MonthYearSelectorProps = {
-  monthID: number;
+  type: "monthYear" | "year";
+  maximum?: string;
+  minimum?: string;
+  monthID?: number;
   year: number;
-  setMonthID: (monthID: number) => void;
+  setMonthID?: (monthID: number) => void;
   setYear: (year: number) => void;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  arrowColor?: string;
+  arrowType: "arrow" | "chevron";
 };
 
 export type CustomTabBarOverlayProps = {

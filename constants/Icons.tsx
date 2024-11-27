@@ -184,9 +184,24 @@ export const LeftArrow = ({ colors, size }: IconProps) => {
   }
 
   return (
-    <Svg width={size} height={size} viewBox="0 0 25 18">
+    <Svg width={size} height={size} viewBox="0 0 24 18">
       <Path
         d="M23.125 8H2.715l5.41-5.36a1 1 0 1 0-1.41-1.42l-5.71 5.66a3 3 0 0 0 0 4.24l5.66 5.66a1 1 0 0 0 1.41-1.42L2.715 10h20.41a1 1 0 1 0 0-2Z"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const RightArrow = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors![0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 18" fill="none">
+      <Path
+        d="M1 10h20.41L16 15.36a1 1 0 0 0 0 1.42 1 1 0 0 0 1.41 0l5.71-5.66a3 3 0 0 0 0-4.24l-5.66-5.66a1 1 0 0 0-1.41 1.42L21.41 8H1a1 1 0 1 0 0 2"
         fill={colors}
       />
     </Svg>
