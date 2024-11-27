@@ -39,7 +39,7 @@ const DropDown = (props: DropDownProps) => {
     if (props.opened) {
       const timer = setTimeout(() => {
         setRenderFlashList(true);
-      }, 80);
+      }, 90);
       return () => clearTimeout(timer);
     } else {
       setRenderFlashList(false);
@@ -89,6 +89,7 @@ const DropDown = (props: DropDownProps) => {
               renderItem={({ item }) => (
                 <Chip
                   variant="default"
+                  editable={true}
                   query={props.monthID!}
                   style={styles.chip}
                   text={item.full}
