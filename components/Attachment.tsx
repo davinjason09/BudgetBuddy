@@ -72,7 +72,7 @@ const Attachment = (props: AttachmentProps) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {data ? (
+      {data && data !== "No attachment provided" ? (
         <View style={styles.dataPreview}>
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity style={styles.close} onPress={() => setData("")}>
