@@ -3,28 +3,47 @@ import Chip from "@/components/Chip";
 import { Colors } from "@/constants/Colors";
 import { banks } from "@/constants/Options";
 import { defaultStyles } from "@/constants/Styles";
-import BottomSheet, {
-  BottomSheetFooter,
-  BottomSheetView,
-} from "@gorhom/bottom-sheet";
+import { addTransaction, addWallet, updateWallet } from "@/utils/Database";
+import { formatDateToISO } from "@/utils/DateFormat";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { FlashList } from "@shopify/flash-list";
 
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useSQLiteContext } from "expo-sqlite";
+import { Storage } from "expo-sqlite/kv-store";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import Toast from "react-native-toast-message";
 
 const AccountWallet = () => {
-  const { type } = useLocalSearchParams<{ type: string }>();
+  const { type, data, balance } = useLocalSearchParams<{
+    type: string;
+    data: string;
+    balance: string;
+  }>();
 
   const [amount, setAmount] = useState<string>("0");
-  const [description, setDescription] = useState<string>("");
+  const [walletName, setWalletName] = useState<string>("");
   const [source, setSource] = useState<string>("");
 
+  const db = useSQLiteContext();
+  const user = Storage.getItemSync("user");
+  const userID = JSON.parse(user!).user_id;
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["62%"], []);
+  const snapPoints = useMemo(() => ["65%"], []);
   const background = Colors.violet100;
   const title = `${type === "add" ? "Add" : "Edit"} Wallet`;
+
+  useEffect(() => {
+    if (type === "edit") {
+      const walletData = JSON.parse(data);
+      const balanceText = balance.replace("$", "");
+      setAmount(balanceText);
+      setWalletName(walletData.name);
+      setSource(walletData.type);
+    }
+  }, []);
 
   const resetValue = () => {
     if (amount === "0") {
@@ -34,19 +53,59 @@ const AccountWallet = () => {
     }
   };
 
-  const renderFooter = useCallback(
-    (props: any) => (
-      <BottomSheetFooter {...props} bottomInset={16}>
-        <Button
-          title="Continue"
-          disabled={false}
-          loading={false}
-          onPress={() => console.log("Add Transaction")}
-        />
-      </BottomSheetFooter>
-    ),
-    [],
-  );
+  const addOrModifyWallet = () => {
+    console.log("Add or Modify Wallet");
+    let error = "";
+
+    if (parseFloat(amount) === 0) {
+      error = "Please enter a valid amount";
+    } else if (walletName === "") {
+      error = "Please enter a wallet name";
+    } else if (source === "") {
+      error = "Please select a source";
+    }
+
+    if (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: error,
+      });
+
+      return;
+    }
+
+    if (type === "add") {
+      addWallet(db, userID, walletName, source, parseFloat(amount));
+      console.log("Wallet added");
+      router.back();
+    } else {
+      const delta = parseFloat(amount) - parseFloat(balance.replace("$", ""));
+      const newName = walletName;
+      const oldName = JSON.parse(data).name;
+      const walletID = JSON.parse(data).id;
+
+      updateWallet(db, userID, oldName, newName, parseFloat(amount));
+
+      if (delta !== 0) {
+        const type = delta > 0 ? "income" : "expense";
+        const description = `Wallet manual ${type === "income" ? "top-up" : "withdrawal"}`;
+        addTransaction(
+          db,
+          userID,
+          delta,
+          formatDateToISO(new Date()),
+          type,
+          "other",
+          description,
+          walletID,
+          "No attachment provided",
+        );
+      }
+      console.log("Wallet modified", delta);
+      router.back();
+    }
+  };
 
   return (
     <View
@@ -56,6 +115,7 @@ const AccountWallet = () => {
         options={{
           title: title,
           headerTitleStyle: styles.pageTitle,
+          headerRight: () => null,
         }}
       />
       <View style={{ flex: 1, justifyContent: "space-between" }}>
@@ -68,7 +128,6 @@ const AccountWallet = () => {
           enableOverDrag={false}
           enablePanDownToClose={false}
           enableDynamicSizing={false}
-          footerComponent={renderFooter}
         >
           <BottomSheetView style={styles.amountContainer}>
             <Text style={styles.amountTitle}>Balance</Text>
@@ -90,24 +149,27 @@ const AccountWallet = () => {
               placeholder="Name"
               placeholderTextColor={Colors.light20}
               cursorColor={background}
+              value={walletName}
               style={[styles.descriptionText, styles.descriptionInput]}
-              onChangeText={setDescription}
+              onChangeText={setWalletName}
             />
             <Text style={styles.sourceText}>Source</Text>
             <FlashList
               data={banks}
               extraData={source}
               keyExtractor={(item) => item.value}
-              ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+              estimatedItemSize={8}
+              ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
               numColumns={4}
               renderItem={({ item }) => (
                 <Chip
                   variant="outlined"
+                  editable={type === "add"}
                   query={source}
                   value={item.value}
                   key={item.value}
-                  icon={item.icon}
-                  text={item.icon ? "" : item.label}
+                  icon={item.icon && item.label !== "Other" ? item.icon : null}
+                  text={item.icon && item.label !== "Other" ? "" : item.label}
                   style={styles.chip}
                   selectedStyle={styles.activeChip}
                   onPress={() => setSource(item.value)}
@@ -115,6 +177,14 @@ const AccountWallet = () => {
               )}
             />
           </BottomSheetView>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Continue"
+              onPress={addOrModifyWallet}
+              disabled={false}
+              loading={false}
+            />
+          </View>
         </BottomSheet>
       </View>
     </View>
@@ -173,19 +243,26 @@ const styles = StyleSheet.create({
   sourceText: {
     ...defaultStyles.textRegular1,
     color: Colors.dark100,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
   chip: {
-    width: 75,
-    height: 40,
+    width: 70,
+    height: 45,
     backgroundColor: "#F1F1FA",
     borderColor: "#F1F1FA",
     borderRadius: 8,
+    marginHorizontal: 4,
   },
   activeChip: {
     backgroundColor: Colors.violet20,
     borderColor: Colors.violet100,
+  },
+  buttonContainer: {
+    width: "100%",
+    position: "absolute",
+    bottom: 0,
+    paddingBottom: 16,
   },
 });
 
