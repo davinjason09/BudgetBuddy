@@ -26,7 +26,7 @@ const Picker = (props: PickerProps) => {
       selectedTextStyle={styles.text}
       containerStyle={styles.container}
       itemContainerStyle={{ borderRadius: 16 }}
-      itemTextStyle={styles.text}
+      itemTextStyle={[styles.text, { fontSize: 14 }]}
       data={data}
       labelField={labelField}
       valueField={valueField}
