@@ -12,12 +12,12 @@ import { defaultStyles } from "@/constants/Styles";
 import { ChipProps } from "@/constants/Types";
 
 const Chip = (props: ChipProps) => {
-  const { variant, onPress, style, textStyle } = props;
+  const { variant, editable, onPress, style, textStyle } = props;
   const [selected, setSelected] = useState(false);
   const animation = useSharedValue<number>(0);
 
   useEffect(() => {
-    animation.value = withTiming(selected ? 1 : 0, { duration: 200 });
+    animation.value = withTiming(selected ? 1 : 0, { duration: 150 });
   }, [selected]);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const Chip = (props: ChipProps) => {
   };
 
   return (
-    <Pressable onPress={() => onPress(props.value)}>
+    <Pressable onPress={() => editable && onPress(props.value)}>
       <Animated.View
         style={[styles.container, selectedChipStyle, border, style]}
       >
