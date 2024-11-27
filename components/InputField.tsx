@@ -10,11 +10,14 @@ import {
 import { Colors } from "@/constants/Colors";
 import { Calendar, Eye, EyeShut } from "@/constants/Icons";
 import { defaultStyles } from "@/constants/Styles";
+import { StyleProp } from "react-native";
+import { ViewStyle } from "react-native";
 
 type InputFieldProps = {
   autocapitalize?: "none" | "sentences" | "words" | "characters";
   placeholder?: string;
   type: "email" | "password" | "text" | "phone" | "number";
+  style?: StyleProp<ViewStyle>;
   value?: string;
   editable?: boolean;
   calendar?: boolean;
@@ -99,11 +102,11 @@ const styles = StyleSheet.create({
     right: "2%",
   },
   calendar: {
-    height: 45,
-    width: 45,
+    height: 56,
+    width: 56,
     justifyContent: "center",
     position: "absolute",
-    right: "5%",
+    right: "2%",
   },
 });
 
