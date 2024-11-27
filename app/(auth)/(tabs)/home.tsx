@@ -1,3 +1,6 @@
+import { LinearGradient } from "expo-linear-gradient";
+import { useSQLiteContext } from "expo-sqlite";
+import { Storage } from "expo-sqlite/kv-store";
 import { StatusBar } from "expo-status-bar";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -7,11 +10,14 @@ import TabContainer from "@/components/TabContainer";
 import { Colors } from "@/constants/Colors";
 import { Bell } from "@/constants/Icons";
 import { defaultStyles } from "@/constants/Styles";
-import { LinearGradient } from "expo-linear-gradient";
+import { getUserAvatar } from "@/utils/Database";
 
 const HomePage = () => {
+  const user = Storage.getItemSync("user");
+  const user_id = JSON.parse(user!).user_id;
+  const db = useSQLiteContext();
   const inset = useSafeAreaInsets();
-  const image = require("@/assets/images/Default_Avatar.png");
+  const image = getUserAvatar(db, user_id);
   const month = new Date().toLocaleString("id-ID", { month: "long" });
 
   return (
@@ -26,7 +32,10 @@ const HomePage = () => {
             style={[styles.titleRow, styles.row, { paddingTop: inset.top }]}
           >
             <View style={styles.avatarOverlay}>
-              <Image source={image} style={styles.avatar} />
+              <Image
+                source={{ uri: `data:image/png;base64,${image?.avatar}` }}
+                style={styles.avatar}
+              />
             </View>
             <View style={styles.month}>
               <Text
