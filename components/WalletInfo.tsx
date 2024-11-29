@@ -1,19 +1,17 @@
 import { Colors } from "@/constants/Colors";
 import { banks } from "@/constants/Options";
 import { defaultStyles } from "@/constants/Styles";
-import { WalletDetailProps } from "@/constants/Types";
+import { WalletInfoProps } from "@/constants/Types";
 import { useRouter } from "expo-router";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const WalletInfo = ({ data }: WalletDetailProps) => {
-  const { id, name, balance, type } = data;
+const WalletInfo = ({ data }: WalletInfoProps) => {
+  const { name, balance, type } = data;
 
   const router = useRouter();
 
   const icon = banks.find((b) => b.value === type)!.icon;
   const balanceText = `${balance < 0 ? "-" : ""}$${Math.abs(balance)}`;
-  console.log(id, name, balance, type);
-  console.log(JSON.stringify(data));
 
   const onPress = () => {
     router.push({
