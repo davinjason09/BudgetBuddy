@@ -1,4 +1,4 @@
-import TransactionDetail from "@/components/TransactionDetail";
+import TransactionInfo from "@/components/TransactionInfo";
 import { Colors } from "@/constants/Colors";
 import { Pencil } from "@/constants/Icons";
 import { banks } from "@/constants/Options";
@@ -58,7 +58,7 @@ const WalletDetails = () => {
         estimatedItemSize={100}
         keyExtractor={(item: any) => item.id.toString()}
         ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-        renderItem={({ item }) => <TransactionDetail data={item} />}
+        renderItem={({ item }) => <TransactionInfo data={item} />}
       />
     </View>
   );
