@@ -1,6 +1,7 @@
 import { Colors } from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
 import { RelativePathString, useRouter } from "expo-router";
+import { Storage } from "expo-sqlite/kv-store";
 import {
   StyleSheet,
   Text,
@@ -17,10 +18,12 @@ type SettingOptionsProps = {
   iconBackground?: string;
   path?: string;
   params?: any;
+  logout?: boolean;
 };
 
 const SettingOptions = (props: SettingOptionsProps) => {
-  const { name, top, bottom, icon, iconBackground, path, params } = props;
+  const { name, top, bottom, icon, iconBackground, path, params, logout } =
+    props;
   const router = useRouter();
 
   const topBorder: ViewStyle = {
@@ -53,6 +56,11 @@ const SettingOptions = (props: SettingOptionsProps) => {
         pathname: path as RelativePathString,
         params: params || {},
       });
+    }
+
+    if (logout) {
+      router.replace("/");
+      Storage.removeItem("user");
     }
   };
 
