@@ -8,6 +8,7 @@ import {
   Food,
   Mandiri,
   Paypal,
+  Plus,
   Salary,
   Shopping,
   Subscription,
@@ -35,17 +36,41 @@ export const slides = [
 ];
 
 export const banks = [
-  { label: "Chase Bank", value: "chase", icon: <Chase size={24} /> },
-  { label: "Paypal", value: "paypal", icon: <Paypal size={24} /> },
-  { label: "Citi Bank", value: "citi", icon: <CitiBank size={24} /> },
+  {
+    label: "Chase Bank",
+    value: "chase",
+    icon: <Chase size={24} />,
+  },
+  {
+    label: "Paypal",
+    value: "paypal",
+    icon: <Paypal size={24} />,
+  },
+  {
+    label: "Citi Bank",
+    value: "citi",
+    icon: <CitiBank size={24} />,
+  },
   {
     label: "Bank of America",
     value: "america",
     icon: <BankOfAmerica size={32} />,
   },
-  { label: "Jago", value: "jago", icon: <BankJago size={24} /> },
-  { label: "Mandiri", value: "mandiri", icon: <Mandiri size={48} /> },
-  { label: "BCA", value: "bca", icon: <BCA size={32} /> },
+  {
+    label: "Jago",
+    value: "jago",
+    icon: <BankJago size={24} />,
+  },
+  {
+    label: "Mandiri",
+    value: "mandiri",
+    icon: <Mandiri size={48} />,
+  },
+  {
+    label: "BCA",
+    value: "bca",
+    icon: <BCA size={32} />,
+  },
   {
     label: "Other",
     value: "other",
@@ -57,34 +82,45 @@ export const categories = [
   {
     label: "Food",
     value: "food",
-    icon: <Food size={30} />,
+    icon: (size: number = 30) => <Food size={size} />,
     background: Colors.red20,
+    color: Colors.red100,
   },
   {
     label: "Transportation",
     value: "transportation",
-    icon: <Transportation size={30} />,
+    icon: (size: number = 30) => <Transportation size={size} />,
     background: Colors.blue20,
+    color: Colors.blue100,
   },
   {
     label: "Shopping",
     value: "shopping",
-    icon: <Shopping size={30} />,
+    icon: (size: number = 30) => <Shopping size={size} />,
     background: Colors.yellow20,
+    color: Colors.yellow100,
   },
   {
     label: "Subscription",
     value: "subscription",
-    icon: <Subscription size={30} />,
+    icon: (size: number = 30) => <Subscription size={size} />,
     background: Colors.violet20,
+    color: Colors.violet100,
   },
   {
     label: "Salary",
     value: "salary",
-    icon: <Salary size={30} />,
+    icon: (size: number = 30) => <Salary size={size} />,
     background: Colors.green20,
+    color: Colors.green100,
   },
-  { label: "Other", value: "other" },
+  {
+    label: "Other",
+    value: "other",
+    icon: (size: number = 30) => <Plus size={size} />,
+    background: "#E3E5E5",
+    color: Colors.dark100,
+  },
 ];
 
 export const filters = [
