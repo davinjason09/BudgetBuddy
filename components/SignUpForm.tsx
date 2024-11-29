@@ -1,14 +1,30 @@
 import Checkbox from "expo-checkbox";
 import { Formik } from "formik";
 import { StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Storage } from "expo-sqlite/kv-store";
+import * as Crypto from "expo-crypto";
 import * as Yup from "yup";
 
 import { Colors } from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
 import Button from "./Button";
 import InputField from "./InputField";
+import { useSQLiteContext } from "expo-sqlite";
+import { useState } from "react";
+import {
+  createProfile,
+  createUser,
+  getUserData,
+  getUserID,
+} from "@/utils/Database";
 
 const SignUpForm = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const db = useSQLiteContext();
+  const router = useRouter();
+
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .required("Name is required")
@@ -23,12 +39,40 @@ const SignUpForm = () => {
       .required("You must accept the terms and conditions"),
   });
 
+  const handleSignUp = (values: any) => {
+    const { name, email, password } = values;
+    const isUserExists = getUserID(db, email);
+    console.log("User exist?", isUserExists);
+
+    if (isUserExists) {
+      setErrorMessage("User already exists");
+      return;
+    }
+
+    console.log(values);
+    console.log("Signed up");
+    createUser(db, email, password);
+    const userData = getUserData(db, email);
+    createProfile(db, userData!.user_id, name);
+
+    const details = {
+      user_id: userData!.user_id,
+      uuid: Crypto.randomUUID(),
+      timestamp: new Date().getTime(),
+    };
+
+    Storage.setItem("user", JSON.stringify(details));
+    router.replace({
+      pathname: "/(auth)/onboarding",
+    });
+  };
+
   return (
     <View style={defaultStyles.pageContainer}>
       <Formik
         validationSchema={validationSchema}
         initialValues={{ name: "", email: "", password: "", checkbox: false }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => handleSignUp(values)}
       >
         {({
           handleChange,
@@ -39,7 +83,9 @@ const SignUpForm = () => {
           touched,
         }) => (
           <View style={{ marginTop: 56 }}>
-            <View style={{ marginBottom: errors.name ? 8.4 : 24 }}>
+            <View
+              style={{ marginBottom: errors.name && touched.name ? 8.4 : 24 }}
+            >
               <InputField
                 autocapitalize="words"
                 placeholder="Name"
@@ -51,18 +97,28 @@ const SignUpForm = () => {
                 <Text style={styles.error}>{errors.name}</Text>
               )}
             </View>
-            <View style={{ marginBottom: errors.email ? 8.4 : 24 }}>
+            <View
+              style={{
+                marginBottom:
+                  (errors.email && touched.email) || errorMessage ? 8.4 : 24,
+              }}
+            >
               <InputField
                 placeholder="Email"
                 type="email"
                 value={values.email}
                 onChangeText={handleChange("email")}
+                removeError={() => setErrorMessage("")}
               />
-              {errors.email && touched.email && (
-                <Text style={styles.error}>{errors.email}</Text>
+              {((errors.email && touched.email) || errorMessage) && (
+                <Text style={styles.error}>{errors.email || errorMessage}</Text>
               )}
             </View>
-            <View style={{ marginBottom: errors.password ? 8.4 : 24 }}>
+            <View
+              style={{
+                marginBottom: errors.password && touched.password ? 8.4 : 24,
+              }}
+            >
               <InputField
                 placeholder="Password"
                 type="password"
@@ -73,7 +129,11 @@ const SignUpForm = () => {
                 <Text style={styles.error}>{errors.password}</Text>
               )}
             </View>
-            <View style={{ marginBottom: errors.checkbox ? 12.4 : 28 }}>
+            <View
+              style={{
+                marginBottom: errors.checkbox && touched.checkbox ? 12.4 : 28,
+              }}
+            >
               <View style={styles.checkboxRow}>
                 <Checkbox
                   value={values.checkbox}
