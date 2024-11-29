@@ -2,7 +2,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useSQLiteContext } from "expo-sqlite";
 import { Storage } from "expo-sqlite/kv-store";
 import { StatusBar } from "expo-status-bar";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Overview from "@/components/Overview";
@@ -10,15 +17,57 @@ import TabContainer from "@/components/TabContainer";
 import { Colors } from "@/constants/Colors";
 import { Bell } from "@/constants/Icons";
 import { defaultStyles } from "@/constants/Styles";
-import { getUserAvatar } from "@/utils/Database";
+import {
+  getCurrentBalance,
+  getMonthlyTransactionSumByType,
+  getUserAvatar,
+} from "@/utils/Database";
+import { months } from "@/constants/Options";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { useRouter } from "expo-router";
 
 const HomePage = () => {
+  const { width } = useWindowDimensions();
   const user = Storage.getItemSync("user");
-  const user_id = JSON.parse(user!).user_id;
+  const userID = JSON.parse(user!).user_id;
   const db = useSQLiteContext();
+  const router = useRouter();
   const inset = useSafeAreaInsets();
-  const image = getUserAvatar(db, user_id);
-  const month = new Date().toLocaleString("id-ID", { month: "long" });
+  const isFocused = useIsFocused();
+
+  const monthID = new Date().getMonth();
+  const month = months[monthID].full;
+  const year = new Date().getFullYear();
+
+  const [avatar, setAvatar] = useState<string>("");
+  const [balance, setBalance] = useState<number>(0);
+  const [monthlyExpenses, setMonthlyExpenses] = useState<number>(0);
+  const [monthlyIncome, setMonthlyIncome] = useState<number>(0);
+  useEffect(() => {
+    if (isFocused) {
+      const image = getUserAvatar(db, userID);
+      const balance = getCurrentBalance(db, userID);
+      const monthlyExpenses = getMonthlyTransactionSumByType(
+        db,
+        userID,
+        monthID + 1,
+        year,
+        "expense",
+      );
+      const monthlyIncome = getMonthlyTransactionSumByType(
+        db,
+        userID,
+        monthID + 1,
+        year,
+        "income",
+      );
+
+      setAvatar(image!.avatar);
+      setBalance(balance!.balance);
+      setMonthlyExpenses(monthlyExpenses!.amount);
+      setMonthlyIncome(monthlyIncome!.amount);
+  }, [isFocused]);
 
   return (
     <TabContainer>
@@ -33,7 +82,7 @@ const HomePage = () => {
           >
             <View style={styles.avatarOverlay}>
               <Image
-                source={{ uri: `data:image/png;base64,${image?.avatar}` }}
+                source={{ uri: `data:image/png;base64,${avatar}` }}
                 style={styles.avatar}
               />
             </View>
@@ -48,11 +97,14 @@ const HomePage = () => {
           </View>
           <View style={{ justifyContent: "center", alignSelf: "center" }}>
             <Text style={styles.balanceTitle}>Account Balance</Text>
-            <Text style={styles.balance}>$9400</Text>
+            <Text style={styles.balance}>${balance}</Text>
           </View>
           <View style={[styles.row, { paddingTop: 27, gap: 16 }]}>
-            <Overview type="income" amount={5000} />
-            <Overview type="expense" amount={1200} />
+            <Overview type="income" amount={Math.abs(monthlyIncome || 0)} />
+            <Overview
+              type="expense"
+              amount={Math.round(Math.abs(monthlyExpenses || 0))}
+            />
           </View>
         </LinearGradient>
       </View>
