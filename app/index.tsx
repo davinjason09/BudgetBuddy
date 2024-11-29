@@ -58,7 +58,7 @@ export default function Index() {
           width={width}
           height={height * 0.67}
           data={data}
-          autoPlayInterval={5000}
+          autoPlayInterval={4000}
           autoPlay
           style={{
             top: 24,
