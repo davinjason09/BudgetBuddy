@@ -3,7 +3,12 @@ import Chip from "@/components/Chip";
 import { Colors } from "@/constants/Colors";
 import { banks } from "@/constants/Options";
 import { defaultStyles } from "@/constants/Styles";
-import { addTransaction, addWallet, updateWallet } from "@/utils/Database";
+import {
+  addTransaction,
+  addWallet,
+  getWalletByName,
+  updateWallet,
+} from "@/utils/Database";
 import { formatDateToISO } from "@/utils/DateFormat";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { FlashList } from "@shopify/flash-list";
@@ -17,8 +22,9 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 const AccountWallet = () => {
-  const { type, data, balance } = useLocalSearchParams<{
+  const { type, from, data, balance } = useLocalSearchParams<{
     type: string;
+    from: string;
     data: string;
     balance: string;
   }>();
@@ -34,6 +40,9 @@ const AccountWallet = () => {
   const snapPoints = useMemo(() => ["65%"], []);
   const background = Colors.violet100;
   const title = `${type === "add" ? "Add" : "Edit"} Wallet`;
+
+  console.log(user);
+  console.log(userID);
 
   useEffect(() => {
     if (type === "edit") {
@@ -53,7 +62,7 @@ const AccountWallet = () => {
     }
   };
 
-  const addOrModifyWallet = () => {
+  const addOrModifyWallet = async () => {
     console.log("Add or Modify Wallet");
     let error = "";
 
@@ -76,9 +85,28 @@ const AccountWallet = () => {
     }
 
     if (type === "add") {
-      addWallet(db, userID, walletName, source, parseFloat(amount));
+      const description = `Added ${walletName} as a new wallet`;
+      await addWallet(db, userID, walletName, source, parseFloat(amount));
+
+      const walletID = getWalletByName(db, userID, walletName)!.id;
+      addTransaction(
+        db,
+        userID,
+        parseFloat(amount),
+        formatDateToISO(new Date()),
+        "income",
+        "other",
+        description,
+        walletID,
+        "No attachment provided",
+      );
       console.log("Wallet added");
-      router.back();
+
+      if (from === "onboarding") {
+        router.replace("/(auth)/allset");
+      } else {
+        router.back();
+      }
     } else {
       const delta = parseFloat(amount) - parseFloat(balance.replace("$", ""));
       const newName = walletName;
