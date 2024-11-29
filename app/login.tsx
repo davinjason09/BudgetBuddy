@@ -1,8 +1,9 @@
+import { useRouter } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
 import LoginForm from "@/components/LoginForm";
 import { Colors } from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
-import { useRouter } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -13,7 +14,7 @@ const LoginPage = () => {
       <View style={{ flex: 1, top: -48 }}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => router.replace("/signup")}
+          onPress={() => router.push("/forgotpass")}
         >
           <Text style={styles.forgot}>Forgot Password?</Text>
         </TouchableOpacity>
