@@ -137,16 +137,18 @@ export const sorts = [
 ];
 
 export const months = [
-  { full: "January", short: "Jan", value: 1 },
-  { full: "February", short: "Feb", value: 2 },
-  { full: "March", short: "Mar", value: 3 },
-  { full: "April", short: "Apr", value: 4 },
-  { full: "May", short: "May", value: 5 },
-  { full: "June", short: "Jun", value: 6 },
-  { full: "July", short: "Jul", value: 7 },
-  { full: "August", short: "Aug", value: 8 },
-  { full: "September", short: "Sep", value: 9 },
-  { full: "October", short: "Oct", value: 10 },
-  { full: "November", short: "Nov", value: 11 },
-  { full: "December", short: "Dec", value: 12 },
+  { full: "January", short: "Jan", value: 0 },
+  { full: "February", short: "Feb", value: 1 },
+  { full: "March", short: "Mar", value: 2 },
+  { full: "April", short: "Apr", value: 3 },
+  { full: "May", short: "May", value: 4 },
+  { full: "June", short: "Jun", value: 5 },
+  { full: "July", short: "Jul", value: 6 },
+  { full: "August", short: "Aug", value: 7 },
+  { full: "September", short: "Sep", value: 8 },
+  { full: "October", short: "Oct", value: 9 },
+  { full: "November", short: "Nov", value: 10 },
+  { full: "December", short: "Dec", value: 11 },
+];
+
 ];
