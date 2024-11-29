@@ -39,6 +39,11 @@ export const defaultStyles = StyleSheet.create({
     height: 56,
   },
 
+  separator: {
+    height: 1,
+    backgroundColor: Colors.light20,
+  },
+
   // Text Styles
   textTitleX: {
     fontSize: 64,
