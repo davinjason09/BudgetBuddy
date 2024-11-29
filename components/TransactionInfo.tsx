@@ -1,13 +1,13 @@
 import { Colors } from "@/constants/Colors";
 import { categories } from "@/constants/Options";
 import { defaultStyles } from "@/constants/Styles";
-import { TransactionDetailProps } from "@/constants/Types";
+import { TransactionInfoProps } from "@/constants/Types";
 import { formatTime } from "@/utils/DateFormat";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 
-const TransactionDetail = ({ data }: TransactionDetailProps) => {
+const TransactionInfo = ({ data }: TransactionInfoProps) => {
   const { amount, created_at, type, category, description } = data;
   const { icon, background } = categories.find((c) => c.value === category)!;
 
@@ -37,7 +37,9 @@ const TransactionDetail = ({ data }: TransactionDetailProps) => {
       activeOpacity={0.8}
       onPress={handlePress}
     >
-      <View style={[styles.icon, { backgroundColor: background }]}>{icon}</View>
+      <View style={[styles.icon, { backgroundColor: background }]}>
+        {icon!()}
+      </View>
       <View style={[styles.info, { flex: 1 }]}>
         <Text style={styles.category}>{label}</Text>
         {hasDescription && (
@@ -95,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TransactionDetail;
+export default TransactionInfo;
