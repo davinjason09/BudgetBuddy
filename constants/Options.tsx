@@ -151,4 +151,7 @@ export const months = [
   { full: "December", short: "Dec", value: 11 },
 ];
 
+export const types = [
+  { label: "Transaction", value: "transaction" },
+  { label: "Category", value: "category" },
 ];
