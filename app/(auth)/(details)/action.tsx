@@ -5,7 +5,7 @@ import { defaultStyles } from "@/constants/Styles";
 import { getTransactionByID, getWalletName } from "@/utils/Database";
 import { formatDayDate, formatTime } from "@/utils/DateFormat";
 import { toTitleCase } from "@/utils/Utils";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import {
@@ -20,6 +20,7 @@ const ActionDetails = () => {
   const { width } = useWindowDimensions();
 
   const db = useSQLiteContext();
+  const router = useRouter();
 
   const transaction = getTransactionByID(db, Number(data));
   const date = formatDayDate(new Date(transaction!.created_at));
@@ -35,6 +36,17 @@ const ActionDetails = () => {
   } else {
     background = Colors.blue100;
   }
+
+  const handleEdit = () => {
+    router.push({
+      pathname: "/(auth)/(actions)/type",
+      params: {
+        type: transaction!.type,
+        id: transaction!.id,
+        action: "edit",
+      },
+    });
+  };
 
   return (
     <View style={defaultStyles.pageContainer}>
@@ -113,7 +125,7 @@ const ActionDetails = () => {
       <View style={styles.button}>
         <Button
           title="Edit"
-          onPress={() => {}}
+          onPress={handleEdit}
           disabled={false}
           loading={false}
         />
