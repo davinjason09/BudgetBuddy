@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  ViewStyle,
 } from "react-native";
 import Animated, {
   Easing,
@@ -16,6 +17,7 @@ import { Colors } from "@/constants/Colors";
 import { FlashList } from "@shopify/flash-list";
 import { months } from "@/constants/Options";
 import Chip from "./Chip";
+import { StyleProp } from "react-native";
 
 type DropDownProps = {
   opened: boolean;
@@ -24,6 +26,7 @@ type DropDownProps = {
   setYear: (year: number) => void;
   setMonthID: (monthID: number) => void;
   backdropPress: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
 const DropDown = (props: DropDownProps) => {
@@ -67,7 +70,7 @@ const DropDown = (props: DropDownProps) => {
       <TouchableWithoutFeedback>
         <Animated.View
           pointerEvents="box-none"
-          style={[styles.dropdown, containerHeight]}
+          style={[styles.dropdown, containerHeight, props.style]}
         >
           <Animated.View style={[opacity, monthListHeight]}>
             <MonthYearSelector
