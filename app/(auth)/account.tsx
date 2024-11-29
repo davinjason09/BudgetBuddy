@@ -2,7 +2,12 @@ import Button from "@/components/Button";
 import WalletInfo from "@/components/WalletInfo";
 import { Colors } from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
-import { getAllWallets } from "@/utils/Database";
+import {
+  addTransaction,
+  getAllWallets,
+  getCurrentBalance,
+} from "@/utils/Database";
+import { useIsFocused } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { useFocusEffect } from "expo-router";
 import { useRouter } from "expo-router";
@@ -18,15 +23,18 @@ const Account = () => {
   const [wallets, setWallets] = useState<any[]>([]);
 
   const db = useSQLiteContext();
+  const isFocused = useIsFocused();
   const router = useRouter();
   const user = Storage.getItemSync("user");
   const userID = JSON.parse(user!).user_id;
   const background = require("@/assets/images/Account_Background.png");
+  const balance = getCurrentBalance(db, userID);
 
   useFocusEffect(
     useCallback(() => {
-      setWallets(getAllWallets(db, userID));
-    }, []),
+      if (isFocused) setWallets(getAllWallets(db, userID));
+      console.log(wallets);
+    }, [isFocused]),
   );
 
   const addWallet = () => {
@@ -38,27 +46,29 @@ const Account = () => {
 
   return (
     <View style={[defaultStyles.pageContainer, { gap: 16 }]}>
-      <View style={styles.info}>
-        <Image source={background} width={width} />
-        <View style={{ position: "absolute" }}>
-          <Text style={styles.balanceTitle}>Account Balance</Text>
-          <Text style={styles.balance}>$9400</Text>
+      <View style={{ flex: 1 }}>
+        <View style={styles.info}>
+          <Image source={background} width={width} />
+          <View style={{ position: "absolute" }}>
+            <Text style={styles.balanceTitle}>Account Balance</Text>
+            <Text style={styles.balance}>${balance!.balance}</Text>
+          </View>
+        </View>
+
+        <View style={styles.flashListContainer}>
+          <FlashList
+            data={wallets}
+            estimatedItemSize={15}
+            keyExtractor={(item) => item.name + item.type}
+            ItemSeparatorComponent={() => (
+              <View style={defaultStyles.separator} />
+            )}
+            renderItem={({ item }) => <WalletInfo data={item} />}
+          />
         </View>
       </View>
 
-      <View style={styles.flashListContainer}>
-        <FlashList
-          data={wallets}
-          estimatedItemSize={100}
-          keyExtractor={(item) => item.name + item.type}
-          ItemSeparatorComponent={() => (
-            <View style={defaultStyles.separator} />
-          )}
-          renderItem={({ item }) => <WalletInfo data={item} />}
-        />
-      </View>
-
-      <View style={{ flex: 1 }}>
+      <View style={styles.button}>
         <Button
           title="+ Add New Wallet"
           onPress={addWallet}
@@ -85,7 +95,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   flashListContainer: {
-    flex: 2,
+    height: 500,
+    marginTop: 16,
     marginBottom: 80,
   },
   balanceTitle: {
@@ -100,6 +111,12 @@ const styles = StyleSheet.create({
     color: Colors.dark75,
     alignSelf: "center",
     fontSize: 48,
+  },
+  button: {
+    position: "absolute",
+    bottom: 110,
+    alignSelf: "center",
+    width: "100%",
   },
 });
 
