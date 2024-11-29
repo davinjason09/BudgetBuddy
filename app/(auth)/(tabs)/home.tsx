@@ -20,15 +20,21 @@ import { defaultStyles } from "@/constants/Styles";
 import {
   getCurrentBalance,
   getMonthlyTransactionSumByType,
+  getRecentTransactions,
   getUserAvatar,
 } from "@/utils/Database";
 import { months } from "@/constants/Options";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
+import LineGraph from "@/components/LineGraph";
+import { getGraphData } from "@/utils/GraphData";
+import Button from "@/components/Button";
 import { useRouter } from "expo-router";
+import TransactionInfo from "@/components/TransactionInfo";
 
 const HomePage = () => {
   const { width } = useWindowDimensions();
+
   const user = Storage.getItemSync("user");
   const userID = JSON.parse(user!).user_id;
   const db = useSQLiteContext();
@@ -44,6 +50,14 @@ const HomePage = () => {
   const [balance, setBalance] = useState<number>(0);
   const [monthlyExpenses, setMonthlyExpenses] = useState<number>(0);
   const [monthlyIncome, setMonthlyIncome] = useState<number>(0);
+  const [recentTransactions, setRecentTransactions] = useState<any[]>([]);
+  const monthlyTransactions = getGraphData({
+    monthID,
+    year,
+    type: "expense",
+    id: 0,
+  });
+
   useEffect(() => {
     if (isFocused) {
       const image = getUserAvatar(db, userID);
@@ -62,11 +76,14 @@ const HomePage = () => {
         year,
         "income",
       );
+      const recent = getRecentTransactions(db, userID, monthID + 1, year, 3);
 
       setAvatar(image!.avatar);
       setBalance(balance!.balance);
       setMonthlyExpenses(monthlyExpenses!.amount);
       setMonthlyIncome(monthlyIncome!.amount);
+      setRecentTransactions(recent);
+    }
   }, [isFocused]);
 
   return (
@@ -107,6 +124,44 @@ const HomePage = () => {
             />
           </View>
         </LinearGradient>
+        <ScrollView
+          bounces={false}
+          bouncesZoom={false}
+          showsVerticalScrollIndicator={false}
+          overScrollMode="never"
+        >
+          <Text
+            style={[
+              defaultStyles.textTitle3,
+              { paddingHorizontal: 16, paddingBottom: 8 },
+            ]}
+          >
+            Spend frequency
+          </Text>
+          <LineGraph data={monthlyTransactions} width={width} />
+          <View style={[styles.row, { width: "90%", paddingBottom: 8 }]}>
+            <Text style={[defaultStyles.textTitle3]}>Recent Transaction</Text>
+            <Button
+              title="See all"
+              onPress={() => router.navigate("/(auth)/(tabs)/transaction")}
+              style={styles.button}
+              textStyle={{ color: Colors.violet100, fontSize: 13 }}
+              loading={false}
+              disabled={false}
+            />
+          </View>
+
+          {recentTransactions.map((transaction) => (
+            <>
+              <TransactionInfo
+                key={transaction.id.toString()}
+                data={transaction}
+              />
+              <View style={{ height: 8 }} />
+            </>
+          ))}
+          <View style={{ height: 80 }} />
+        </ScrollView>
       </View>
     </TabContainer>
   );
@@ -167,6 +222,11 @@ const styles = StyleSheet.create({
     color: Colors.dark75,
     alignSelf: "center",
     fontSize: 48,
+  },
+  button: {
+    ...defaultStyles.secondaryButton,
+    width: 75,
+    height: 32,
   },
 });
 
