@@ -29,6 +29,24 @@ const ActionLayout = () => {
         }}
       />
       <Stack.Screen
+        name="budget"
+        options={{
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerTitleStyle: defaultStyles.textTitle3,
+          headerTransparent: true,
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => router.back()}
+              style={defaultStyles.arrowContainer}
+            >
+              <LeftArrow size={24} colors={Colors.light100} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
         name="wallet"
         options={{
           headerTitleAlign: "center",
