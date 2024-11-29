@@ -3,23 +3,33 @@ import TabContainer from "@/components/TabContainer";
 import { Colors } from "@/constants/Colors";
 import { Gear, Logout, Pencil, Upload, Wallet } from "@/constants/Icons";
 import { defaultStyles } from "@/constants/Styles";
+import { getUserAvatar, getUserProfile } from "@/utils/Database";
+import { useSQLiteContext } from "expo-sqlite";
+import { Storage } from "expo-sqlite/kv-store";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const ProfilePage = () => {
+  const db = useSQLiteContext();
   const inset = useSafeAreaInsets();
-  const image = require("@/assets/images/Default_Avatar.png");
+  const user = Storage.getItemSync("user");
+  const userID = JSON.parse(user!).user_id;
+  const userData = getUserProfile(db, userID);
+  const avatar = getUserAvatar(db, userID)!.avatar;
 
   return (
     <TabContainer>
       <View style={[styles.pageContainer, { paddingTop: inset.top }]}>
         <View style={styles.row}>
-          <Image source={image} style={styles.avatar} />
+          <Image
+            source={{ uri: `data:image/png;base64,${avatar}` }}
+            style={styles.avatar}
+          />
           <View style={{ flexDirection: "column", flex: 1 }}>
             <Text style={[defaultStyles.textRegular3, { color: "#91919F" }]}>
               Username
             </Text>
-            <Text style={defaultStyles.textTitle2}>John Doe</Text>
+            <Text style={defaultStyles.textTitle2}>{userData!.name}</Text>
           </View>
           <Pencil size={24} colors={Colors.dark100} />
         </View>
@@ -45,7 +55,7 @@ const ProfilePage = () => {
           bottom
           iconBackground={Colors.red20}
           icon={<Logout size={24} colors={Colors.red100} />}
-          path="/"
+          logout
         />
       </View>
     </TabContainer>
