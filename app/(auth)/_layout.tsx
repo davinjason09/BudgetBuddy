@@ -15,13 +15,33 @@ const AuthLayout = () => {
       <Stack.Screen name="(actions)" options={{ headerShown: false }} />
       <Stack.Screen name="(details)" options={{ headerShown: false }} />
       <Stack.Screen
+        name="report"
+        options={{
+          title: "Financial Report",
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerTitleStyle: defaultStyles.textTitle3,
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => router.back()}
+              style={defaultStyles.arrowContainer}
+            >
+              <LeftArrow size={24} colors={Colors.dark100} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+      <Stack.Screen name="allset" options={{ headerShown: false }} />
+      <Stack.Screen
         name="account"
         options={{
           title: "Account",
           headerTitleAlign: "center",
           headerShadowVisible: false,
           headerTitleStyle: defaultStyles.textTitle3,
-          headerTransparent: true,
+          // headerTransparent: true,
           headerLeft: () => (
             <TouchableOpacity
               activeOpacity={0.8}
