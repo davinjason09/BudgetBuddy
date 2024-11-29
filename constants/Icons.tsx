@@ -160,6 +160,52 @@ export const Plus = ({ colors, size }: IconProps) => {
   );
 };
 
+export const Warning = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 25" fill="none">
+      <Path
+        d="M12 .5a12 12 0 1 0 0 24 12 12 0 0 0 0-24m-1 7a1 1 0 0 1 2 0v6a1 1 0 0 1-2 0zm1 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const Graph = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 28 20" fill="none">
+      <Path
+        d="M28 4a4 4 0 0 1-4 4 3.9 3.9 0 0 1-1.87-.47l-5.78 6.3A4 4 0 0 1 17 16a4 4 0 1 1-8 0 3.8 3.8 0 0 1 .34-1.58l-2.9-2.25A3.94 3.94 0 0 1 4 13a4 4 0 1 1 4-4 4 4 0 0 1-.33 1.58l2.89 2.25a4 4 0 0 1 4.32-.36l5.77-6.3A4 4 0 0 1 20 4a4 4 0 1 1 8 0"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const PieChart = ({ colors = Colors.light100, size }: IconProps) => {
+  if (typeof colors === "string") {
+    colors = [colors, colors];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path d="M24 11H13V0a12 12 0 0 1 11 11" fill={colors![0]} />
+      <Path
+        d="M24 13A12.001 12.001 0 1 1 11 0v12a1 1 0 0 0 1 1z"
+        fill={colors![1]}
+      />
+    </Svg>
+  );
+};
+
 export const Bell = ({ colors, size }: IconProps) => {
   if (typeof colors === "string") {
     colors = [colors, colors];
@@ -263,6 +309,21 @@ export const PaperClip = ({ colors, size }: IconProps) => {
     <Svg width={size} height={size} viewBox="0 0 20 22">
       <Path
         d="M5.595 22a5 5 0 0 1-3.54-8.54l8.48-8.48a3.002 3.002 0 1 1 4.25 4.24l-8.49 8.49a1 1 0 1 1-1.41-1.42l8.48-8.48a1 1 0 1 0-1.41-1.42l-8.49 8.44a3.001 3.001 0 1 0 4.25 4.24l8.48-8.48a5.003 5.003 0 0 0-7.07-7.08l-4.95 5a1 1 0 0 1-1.41-1.41l4.95-5a7 7 0 0 1 9.9 9.9l-8.49 8.48A5.002 5.002 0 0 1 5.595 22Z"
+        fill={colors}
+      />
+    </Svg>
+  );
+};
+
+export const Trash = ({ colors, size }: IconProps) => {
+  if (typeof colors === "object") {
+    colors = colors[0];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 26" fill="none">
+      <Path
+        d="M23 4h-7V3a3 3 0 0 0-3-3h-2a3 3 0 0 0-3 3v1H1a1 1 0 0 0 0 2h1.09l1.55 15.5a5 5 0 0 0 5 4.5h6.76a5 5 0 0 0 5-4.5L21.91 6H23a1 1 0 1 0 0-2M10 3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h-4zm.09 16H10a1 1 0 0 1-1-.91l-.52-6a1 1 0 1 1 1.99-.18l.53 6a1 1 0 0 1-.91 1.09m4.91-.91a1 1 0 0 1-1 .91h-.09a1 1 0 0 1-.91-1.09l.53-6a1.003 1.003 0 1 1 2 .17z"
         fill={colors}
       />
     </Svg>
@@ -439,6 +500,26 @@ export const Filter = ({ colors, size }: IconProps) => {
   );
 };
 
+export const Sort = ({ colors, size }: IconProps) => {
+  if (typeof colors === "string") {
+    colors = [colors, colors];
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 18" fill="none">
+      <Path
+        d="M23 1.5H11a.5.5 0 0 1 0-1h12a.5.5 0 0 1 0 1Z"
+        fill={colors![0]}
+        stroke={colors![0]}
+      />
+      <Path
+        d="M17 10h-6a1 1 0 1 1 0-2h6a1 1 0 1 1 0 2m-4 8h-2a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2M7 0a1 1 0 0 0-1 1v14.45l-4.29-4.3a1.004 1.004 0 1 0-1.42 1.42l4.59 4.59A3 3 0 0 0 7 18a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1"
+        fill={colors![1]}
+      />
+    </Svg>
+  );
+};
+
 export const Calendar = ({ colors, size }: IconProps) => {
   if (typeof colors === "string") {
     colors = [colors, colors];
@@ -500,6 +581,15 @@ export const EyeShut = ({ colors, size }: IconProps) => {
     </Svg>
   );
 };
+
+export const Check = ({ size }: IconProps) => (
+  <Svg width={size} height={size} viewBox="0 0 96 96" fill="none">
+    <Path
+      d="M48 0a48 48 0 1 0 0 96 48 48 0 0 0 0-96m22.64 38.36L48 60.96a12 12 0 0 1-16.96 0l-5.68-5.64a4.015 4.015 0 1 1 5.68-5.68l5.64 5.68a4 4 0 0 0 5.68 0l22.6-22.64a4.015 4.015 0 1 1 5.68 5.68"
+      fill={Colors.green100}
+    />
+  </Svg>
+);
 
 // Categories
 export const Shopping = ({ size }: IconProps) => (
