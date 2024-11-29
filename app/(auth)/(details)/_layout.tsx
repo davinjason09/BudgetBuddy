@@ -33,6 +33,24 @@ const DetailsLayout = () => {
         }}
       />
       <Stack.Screen
+        name="budget"
+        options={{
+          title: "Budget Details",
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerTitleStyle: defaultStyles.textTitle3,
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => router.back()}
+              style={defaultStyles.arrowContainer}
+            >
+              <LeftArrow size={24} colors={Colors.dark100} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
         name="wallet"
         options={{
           title: "Account Details",
