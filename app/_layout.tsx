@@ -1,8 +1,11 @@
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack, useRouter } from "expo-router";
-import { useEffect } from "react";
+import { Slot, Stack, useRouter } from "expo-router";
+import { SQLiteProvider } from "expo-sqlite";
+import { Storage } from "expo-sqlite/kv-store";
+import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import * as SplashScreen from "expo-splash-screen";
 
 import { Colors } from "@/constants/Colors";
 import { FloatingButtons } from "@/constants/FloatingButtons";
@@ -11,15 +14,42 @@ import { defaultStyles } from "@/constants/Styles";
 import CustomTabBarProvider from "@/context/CustomTabBarContext";
 import { migrateDBIfNeeded } from "@/utils/Database";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { SQLiteProvider } from "expo-sqlite";
+import { StatusBar } from "expo-status-bar";
+import Toast from "react-native-toast-message";
 
 const RootLayout = () => {
   SplashScreen.preventAutoHideAsync();
 
   const router = useRouter();
+  const [isMounted, setMounted] = useState(false);
+  const [isUserChecked, setUserChecked] = useState(false);
   const [fontLoaded, fontError] = useFonts({
     Inter: require("@/assets/fonts/Inter-Regular.ttf"),
   });
+
+  const checkUser = () => {
+    const user = Storage.getItemSync("user");
+    let interval = 0;
+
+    if (user) {
+      const info = JSON.parse(user);
+      console.log(info);
+      const now = new Date().getTime();
+      interval = now - new Date(info.timestamp).getTime();
+    }
+
+    console.log(interval);
+    if (interval && interval < 1000 * 60 * 60 * 24 * 7) {
+      console.log("User is logged in");
+      router.replace("/(auth)/(tabs)/home");
+    } else {
+      console.log("User is not logged in");
+      Storage.removeItem("user");
+      router.replace("/");
+    }
+
+    setUserChecked(true);
+  };
 
   useEffect(() => {
     if (fontError) {
@@ -29,9 +59,22 @@ const RootLayout = () => {
 
   useEffect(() => {
     if (fontLoaded) {
-      SplashScreen.hideAsync();
+      setMounted(true);
     }
   }, [fontLoaded]);
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  useEffect(() => {
+    if (fontLoaded && isUserChecked) {
+      console.log("Hiding splash screen");
+      SplashScreen.hideAsync();
+    }
+  }, [fontLoaded, isUserChecked]);
+
+  if (!isMounted || !isUserChecked) return <Slot />;
 
   return (
     <Stack
@@ -110,6 +153,8 @@ const RootLayoutNav = () => {
         <SQLiteProvider databaseName="app.db" onInit={migrateDBIfNeeded}>
           <BottomSheetModalProvider>
             <RootLayout />
+            <StatusBar style="auto" />
+            <Toast />
           </BottomSheetModalProvider>
         </SQLiteProvider>
       </GestureHandlerRootView>
