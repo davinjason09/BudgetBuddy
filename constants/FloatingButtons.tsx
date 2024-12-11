@@ -11,8 +11,8 @@ export const FloatingButtons = [
         style={[styles.item, { backgroundColor: Colors.green100 }]}
         onPress={() => {
           router.push({
-            pathname: "/(actions)/type",
-            params: { type: "income" },
+            pathname: "/(auth)/(actions)/type",
+            params: { type: "income", action: "add" },
           });
         }}
       >
@@ -27,8 +27,8 @@ export const FloatingButtons = [
         style={[styles.item, { backgroundColor: Colors.blue100 }]}
         onPress={() => {
           router.push({
-            pathname: "/(actions)/type",
-            params: { type: "transfer" },
+            pathname: "/(auth)/(actions)/type",
+            params: { type: "transfer", action: "add" },
           });
         }}
       >
@@ -43,8 +43,8 @@ export const FloatingButtons = [
         style={[styles.item, { backgroundColor: Colors.red100 }]}
         onPress={() => {
           router.push({
-            pathname: "/(actions)/type",
-            params: { type: "expense" },
+            pathname: "/(auth)/(actions)/type",
+            params: { type: "expense", action: "add" },
           });
         }}
       >
